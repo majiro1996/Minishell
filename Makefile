@@ -6,13 +6,17 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/05/09 22:44:31 by manujime         ###   ########.fr        #
+#    Updated: 2023/05/15 15:49:27 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 LIBFT = libft/libft.a
+
+GREEN		=		\033[0;32m
+RED			=		\033[0;31m
+END			=		\033[0m
 
 SRC =   main.c \
 
@@ -23,22 +27,24 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -l readline
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -l readline
+	@echo "$(GREEN)$(NAME) compiled"
 
 $(LIBFT):
-	make extra -C libft
+	@make extra -C libft
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 bonus: $(BONUS)
 
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
-	make fclean -C libft
+	@rm -f $(NAME)
+	@make fclean -C libft
+	@echo "$(RED)$(NAME) deleted"
 
 re: fclean all
 

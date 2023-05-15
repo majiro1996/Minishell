@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/21 12:18:06 by manujime          #+#    #+#              #
-#    Updated: 2023/03/30 14:54:39 by manujime         ###   ########.fr        #
+#    Updated: 2023/05/15 15:50:04 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,10 @@ CC 		=	gcc
 CCFLAGS =	-c -Wall -Wextra -Werror
 
 NAME 	=	libft.a
+
+GREEN		=		\033[0;32m
+RED			=		\033[0;31m
+END			=		\033[0m
 
 SRC		=	ft_isalpha.c \
 			ft_isdigit.c \
@@ -83,19 +87,22 @@ OBEXTRA = $(EXTRA:.c=.o)
 all:		$(NAME)
 
 $(NAME): 	$(OBJ)
-			$(LIB) $(NAME) $(OBJ)
+	@$(LIB) $(NAME) $(OBJ)
+	@echo "$(GREEN)$(NAME) compiled$(END)"
 
 bonus: 		$(OBJ) $(OBONUS)
-			$(LIB) $(NAME) $(OBJ) $(OBONUS)
+	@$(LIB) $(NAME) $(OBJ) $(OBONUS)
 
-extra:		$(OBJ) $(OBONUS) $(OBEXTRA)
-			$(LIB) $(NAME) $(OBJ) $(OBONUS) $(OBEXTRA)
+extra:	$(OBJ) $(OBONUS) $(OBEXTRA)
+	@$(LIB) $(NAME) $(OBJ) $(OBONUS) $(OBEXTRA)
+	@echo "$(GREEN)$(NAME) compiled$(END)"
 
 clean:
-			rm -f $(OBJ) $(OBONUS) $(OBEXTRA)
+	@rm -f $(OBJ) $(OBONUS) $(OBEXTRA)
 
 fclean: 	clean
-			rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "$(RED)$(NAME) deleted$(END)"
 
 re: 		fclean all
 
