@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/17 15:13:37 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:05:40 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ void	ft_cd(char **input)
 	if (input[1] == NULL)
 	{
 		if (chdir(getenv("HOME")) != 0)
-			perror("minishell3");
+			perror("cd");
 	}
 	else if (chdir(input[1]) != 0)
-		perror("bad path");
+	{
+		printf("cd: %s", strerror(2));
+		printf(": %s\n", input[1]);
+	}
 }
 
 //prints the current working directory
@@ -31,7 +34,7 @@ void	ft_pwd(void)
 
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
-		perror("minishell4");
+		perror("pwd");
 	else
 	{
 		ft_putstr_fd(cwd, STDOUT_FILENO);

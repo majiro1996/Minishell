@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/17 15:22:29 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:10:06 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,25 +68,26 @@ void	ft_launch_executable(char **input, int argc, char **argv, char **envp)
 //the user presses ctrl-D or types exit.
 int	main(int argc, char *argv[], char *envp[])
 {
-	char	*input;
-	char	**splitted;
 	int		builtins;
+	t_data	data;
 
+	data.envp = envp;
+	data.argv = argv;
 	while (1)
 	{
 		builtins = 0;
-		input = readline("minishell> ");
-		if (input == NULL)
+		data.line = readline("minishell> ");
+		if (data.line == NULL)
 		{
 			printf("\n");
 			break ;
 		}
-		add_history(input);
-		splitted = ft_split(input, ' ');
-		builtins = ft_builtins(splitted, envp);
+		add_history(data.line);
+		data.input = ft_split(data.line, ' ');
+		builtins = ft_builtins(data.input, envp);
 		if (!builtins)
-			ft_launch_executable(splitted, argc, argv, envp);
-		free(input);
+			ft_launch_executable(data.input, argc, argv, envp);
+		free(data.line);
 	}
 	return (0);
 }
