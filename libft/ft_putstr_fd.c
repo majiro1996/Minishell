@@ -6,13 +6,12 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 12:51:54 by manujime          #+#    #+#             */
-/*   Updated: 2023/03/27 23:12:15 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:33:49 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-/*Envía la string ’s’ al file descriptor
-especificado.*/
+//sends the string 's' to the specified file descriptor
 void	ft_putstr_fd(char *s, int fd)
 {
 	int	c;
