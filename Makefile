@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/05/15 15:49:27 by manujime         ###   ########.fr        #
+#    Updated: 2023/05/17 13:09:26 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ RED			=		\033[0;31m
 END			=		\033[0m
 
 SRC =   main.c \
+		builtins.c \
 
 OBJ = $(SRC:.c=.o)
 

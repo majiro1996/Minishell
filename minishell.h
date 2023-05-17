@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/06 12:51:54 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/17 14:33:49 by manujime         ###   ########.fr       */
+/*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
+/*   Updated: 2023/05/17 15:32:42 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-//sends the string 's' to the specified file descriptor
-void	ft_putstr_fd(char *s, int fd)
+#ifndef MINISHELL_H
+# define MINISHELL_H
+
+# include "libft/libft.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <string.h>
+# include <sys/wait.h>
+
+typedef struct s_data
 {
-	int	c;
+	char	*line;
+	char	**input;
+	char	**envp;
+	char	**argv;
+}t_data;
 
-	c = 0;
-	while (s[c] != '\0')
-	{
-		write(fd, &s[c], 1);
-		c++;
-	}
-}
+void	ft_cd(char **input);
+void	ft_pwd(void);
 
-void	ft_putstr(char *str)
-{
-	int	c;
-
-	c = 0;
-	while (str[c])
-	{
-		write(1, &str[c], 1);
-		c++;
-	}
-}
+#endif
