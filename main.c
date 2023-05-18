@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/18 14:15:15 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/18 15:42:39 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int		builtins;
 	t_data	data;
 
-	ft_init_data(data, argc, argv, envp);
+	ft_init_data(&data, argc, argv, envp);
 	while (1)
 	{
 		builtins = 0;
