@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/18 13:56:44 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:58:48 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,34 @@ void	ft_echo(char **input)
 	}
 	if (n_flag == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
+}
+
+//checks if there is an argument, if there is, it checks if it's valid
+//then exits with the argument as the exit code
+//if there is no argument, it exits with the exit code 0
+void	ft_exit(char **input)
+{
+	int	c;
+
+	c = 0;
+	while (input[c])
+		c++;
+	if (c == 1)
+		exit(EXIT_SUCCESS);
+	else if (c == 2)
+	{
+		if (ft_isdigit(input[1][0]) == 1)
+			exit(ft_atoi(input[1]));
+		else
+		{
+			printf("exit: %s", strerror(2));
+			printf(": %s\n", input[1]);
+			exit(2);
+		}
+	}
+	else
+	{
+		printf("exit: too many arguments\n");
+		exit(1);
+	}
 }

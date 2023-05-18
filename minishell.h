@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/18 15:42:48 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:27:45 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void	ft_echo(char **input);
 void	ft_clean_input(t_data data);
 //init
 void	ft_init_data(t_data *data, int argc, char **argv, char **envp);
+void	ft_exit(char **input);
 
 #endif
