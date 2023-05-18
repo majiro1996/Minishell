@@ -6,12 +6,14 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/17 18:10:06 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/18 12:13:44 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//checks if the first argument is a builtin command and if it is, executes it
+//and returns 1, if it isn't, returns 0
 int	ft_builtins(char **input, char **envp)
 {
 	(void)envp;
@@ -19,9 +21,9 @@ int	ft_builtins(char **input, char **envp)
 		ft_cd(input);
 	else if (ft_strcmp(input[0], "pwd") == 0)
 		ft_pwd();
+	else if (ft_strcmp(input[0], "echo") == 0)
+		ft_echo(input);
 	//TODO: add the rest of the builtins
-	// else if (ft_strcmp(input[0], "echo") == 0)
-	// 	ft_echo(input);
 	// else if (ft_strcmp(input[0], "export") == 0)
 	// 	ft_export(input, envp);
 	// else if (ft_strcmp(input[0], "unset") == 0)
@@ -30,33 +32,32 @@ int	ft_builtins(char **input, char **envp)
 	// 	ft_env(envp);
 	// else if (ft_strcmp(input[0], "exit") == 0)
 	// 	ft_exit(input);
-	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd"))
+	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd")
+		|| !ft_strcmp(input[0], "echo"))
 		return (1);
 	return (0);
 }
 
 //Search and launch the right executable (based on the PATH variable or using a
 //relative or an absolute path)
-void	ft_launch_executable(char **input, int argc, char **argv, char **envp)
+void	ft_launch_executable(t_data data)
 {
 	pid_t	pid;
 	int		status;
 	char	*path;
 
-	(void)argc;
-	(void)argv;
-	path = input[0];
+	path = data.input[0];
 	pid = fork();
 	if (pid == 0)
 	{
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
 		dup2(STDERR_FILENO, STDERR_FILENO);
-		if (execve(path, input, envp) == -1)
-			perror("minishell1");
+		if (execve(path, data.input, data.envp) == -1)
+			perror("minishell");
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
-		perror("minishell2");
+		perror("minishell");
 	else
 	{
 		waitpid(pid, &status, WUNTRACED);
@@ -73,6 +74,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	data.envp = envp;
 	data.argv = argv;
+	data.argc = argc;
 	while (1)
 	{
 		builtins = 0;
@@ -85,9 +87,10 @@ int	main(int argc, char *argv[], char *envp[])
 		add_history(data.line);
 		data.input = ft_split(data.line, ' ');
 		builtins = ft_builtins(data.input, envp);
-		if (!builtins)
-			ft_launch_executable(data.input, argc, argv, envp);
+		if (!builtins && data.input[0])
+			ft_launch_executable(data);
 		free(data.line);
+		free(data.input);
 	}
 	return (0);
 }
