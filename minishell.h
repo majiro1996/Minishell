@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/18 10:32:20 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/18 14:15:46 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,9 @@ typedef struct s_data
 void	ft_cd(char **input);
 void	ft_pwd(void);
 void	ft_echo(char **input);
+//clean_up.c
+void	ft_clean_input(t_data data);
+//init
+void	ft_init_data(t_data data, int argc, char **argv, char **envp);
 
 #endif

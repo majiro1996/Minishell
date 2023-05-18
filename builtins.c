@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/18 10:34:36 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/18 13:56:44 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,22 @@ void	ft_pwd(void)
 //it doesn't print a newline
 void	ft_echo(char **input)
 {
-	int	i;
+	int	c;
 	int	n_flag;
 
-	i = 1;
+	c = 1;
 	n_flag = 0;
-	if (input[1] != NULL && ft_strcmp(input[1], "-n") == 0)
+	if (input[1] && ft_strcmp(input[1], "-n") == 0)
 	{
 		n_flag = 1;
-		i++;
+		c++;
 	}
-	while (input[i] != NULL)
+	while (input[c])
 	{
-		ft_putstr_fd(input[i], STDOUT_FILENO);
-		if (input[i + 1] != NULL)
+		ft_putstr_fd(input[c], STDOUT_FILENO);
+		if (input[c + 1])
 			ft_putstr_fd(" ", STDOUT_FILENO);
-		i++;
+		c++;
 	}
 	if (n_flag == 0)
 		ft_putstr_fd("\n", STDOUT_FILENO);
