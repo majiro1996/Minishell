@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/18 15:42:39 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:10:05 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	ft_builtins(char **input, char **envp)
 	// 	ft_unset(input, envp);
 	// else if (ft_strcmp(input[0], "env") == 0)
 	// 	ft_env(envp);
-	// else if (ft_strcmp(input[0], "exit") == 0)
-	// 	ft_exit(input);
+	else if (ft_strcmp(input[0], "exit") == 0)
+		ft_exit(input);
 	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd")
-		|| !ft_strcmp(input[0], "echo"))
+		|| !ft_strcmp(input[0], "echo") || !ft_strcmp(input[0], "exit"))
 		return (1);
 	return (0);
 }
@@ -53,11 +53,11 @@ void	ft_launch_executable(t_data data)
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
 		dup2(STDERR_FILENO, STDERR_FILENO);
 		if (execve(path, data.input, data.envp) == -1)
-			perror("minishell");
+			perror(path);
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
-		perror("minishell");
+		perror(path);
 	else
 	{
 		waitpid(pid, &status, WUNTRACED);
