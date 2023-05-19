@@ -3,36 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 23:23:18 by marvin            #+#    #+#             */
-/*   Updated: 2023/05/17 23:23:18 by marvin           ###   ########.fr       */
+/*   Updated: 2023/05/19 19:47:28 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    redirect_output(int append_flag, char **input)
+int	redirect_output(int append_flag, char **input)
 {
-    FILE    *file;
-    char    *filename;
-    int     devnull;
-    char    **substr;
+	// FILE	*file;
+	char	*filename;
+	// int		devnull;
+	(void)append_flag;
 
-    puts("a");
-    substr = ft_split(input[2], '>');
-    filename = ft_strtrim(substr[2], " ");
-    puts(filename);
-    free(substr);
-    devnull = open("/dev/null", O_WRONLY);
-    dup2(devnull, 1);
-    dup2(devnull, 2);
-    close(devnull);
-    if (!append_flag)
-        file = freopen(filename, "w+", stdout);
-    else
-        file = freopen(filename, "a+", stdout);
-    if (file == NULL)
-        printf("stdout error: %s\n", strerror(2));
-    fclose(file);
+	filename = input[0];
+	printf("%s\n", filename);
+	// if (!append_flag)
+	// 	file = freopen(filename, "w+", stdout);
+	// else
+	// 	file = freopen(filename, "a+", stdout);
+	// if (file == NULL)
+	// 	printf("stdout error: %s\n", strerror(2));
+	// devnull = open("/dev/null", O_WRONLY);
+	// dup2(devnull, 1);
+	// close(devnull);
+	// fclose(file);
+	return (1);
 }

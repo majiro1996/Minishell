@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/17 15:32:42 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:03:44 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
-#define GREEN "\033[0;32m"
-#define RED "\033[0;31m"
-#define END "\033[0m"
-
+# define GREEN "\033[0;32m"
+# define RED "\033[0;31m"
+# define END "\033[0m"
 
 typedef struct s_data
 {
@@ -40,5 +39,5 @@ void	ft_cd(char **input);
 void	ft_pwd(void);
 
 //redirections.c
-void    redirect_output(int append_flag, char **input);
+void	redirect_output(int append_flag, char **input);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/17 18:10:06 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:58:47 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 int	ft_builtins(char **input, char **envp)
 {
 	(void)envp;
-	if (ft_strnstr(input[0], ">",
-		ft_strlen(input[0])) != NULL)
-		redirect_output(0, input);
-	else if (ft_strnstr(input[0], ">>",
-		ft_strlen(input[0])) != NULL)
-		redirect_output(1, input);
 	if (ft_strcmp(input[0], "cd") == 0)
 		ft_cd(input);
 	else if (ft_strcmp(input[0], "pwd") == 0)
@@ -36,8 +30,8 @@ int	ft_builtins(char **input, char **envp)
 	// 	ft_env(envp);
 	// else if (ft_strcmp(input[0], "exit") == 0)
 	// 	ft_exit(input);
-	// if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd"))
-	// 	return (1);
+	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd"))
+		return (1);
 	return (0);
 }
 
@@ -58,7 +52,7 @@ void	ft_launch_executable(char **input, int argc, char **argv, char **envp)
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
 		dup2(STDERR_FILENO, STDERR_FILENO);
 		if (execve(path, input, envp) == -1)
-			printf("execution error: %s\n", strerror(8));
+			printf("minishell: %s\n", strerror(8));
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
