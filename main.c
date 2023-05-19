@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/18 19:10:05 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:18:00 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	ft_builtins(char **input, char **envp)
 	else if (ft_strcmp(input[0], "echo") == 0)
 		ft_echo(input);
 	//TODO: add the rest of the builtins
-	// else if (ft_strcmp(input[0], "export") == 0)
-	// 	ft_export(input, envp);
+	else if (ft_strcmp(input[0], "export") == 0)
+		ft_export(input, envp);
 	// else if (ft_strcmp(input[0], "unset") == 0)
 	// 	ft_unset(input, envp);
-	// else if (ft_strcmp(input[0], "env") == 0)
-	// 	ft_env(envp);
+	//else if (ft_strcmp(input[0], "env") == 0)
+	//	ft_env(input, envp);
 	else if (ft_strcmp(input[0], "exit") == 0)
 		ft_exit(input);
 	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd")
@@ -67,7 +67,8 @@ void	ft_launch_executable(t_data data)
 //this is the main function, it displays a prompt and waits for the user to
 //enter a command. It then reads the command and executes it. It loops until
 //the user presses ctrl-D or types exit.
-int	main(int argc, char *argv[], char *envp[])
+//atexit(ft_leaks);
+int	main(int argc, char **argv, char **envp)
 {
 	int		builtins;
 	t_data	data;

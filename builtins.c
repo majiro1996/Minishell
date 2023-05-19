@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/18 18:58:48 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/19 18:01:31 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,31 @@ void	ft_exit(char **input)
 	{
 		printf("exit: too many arguments\n");
 		exit(1);
+	}
+}
+
+//export command with no options
+void	ft_export(char **input, char **envp)
+{
+	int	c;
+
+	c = 0;
+	while (input[c])
+		c++;
+	if (c == 1)
+		ft_print_env(envp);
+	else if (c == 2)
+	{
+		if (ft_isalpha(input[1][0]) == 1)
+			ft_add_env(input[1], envp);
+		else
+		{
+			printf("export: %s", strerror(2));
+			printf(": %s\n", input[1]);
+		}
+	}
+	else
+	{
+		printf("export: too many arguments\n");
 	}
 }
