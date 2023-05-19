@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/05/17 13:09:26 by manujime         ###   ########.fr        #
+#    Updated: 2023/05/19 12:46:47 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,9 @@ END			=		\033[0m
 SRC =   main.c \
 		builtins.c \
 		redirections.c \
+		init.c \
+		clean_up.c \
+		utils.c \
 
 OBJ = $(SRC:.c=.o)
 
