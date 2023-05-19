@@ -6,7 +6,7 @@
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/19 19:58:47 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:35:15 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,18 @@ int	main(int argc, char **argv, char **envp)
 {
 	int		builtins;
 	t_data	data;
+	char	*prompt;
 
 	ft_init_data(&data, argc, argv, envp);
 	while (1)
 	{
 		builtins = 0;
-		data.line = readline("minishell> ");
+		prompt = ft_strdup(GREEN);
+		prompt = ft_strjoin(prompt, getenv("USER"));
+		prompt = ft_strjoin(prompt, "@");
+		prompt = ft_strjoin(prompt, "mini(s)hell>");
+		prompt = ft_strjoin(prompt, END);
+		data.line = readline(prompt);
 		if (data.line == NULL)
 		{
 			printf("\n");

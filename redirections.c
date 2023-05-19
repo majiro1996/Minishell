@@ -6,13 +6,13 @@
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 23:23:18 by marvin            #+#    #+#             */
-/*   Updated: 2023/05/19 19:47:28 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:13:18 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	redirect_output(int append_flag, char **input)
+void	redirect_output(int append_flag, char **input)
 {
 	// FILE	*file;
 	char	*filename;
@@ -31,5 +31,4 @@ int	redirect_output(int append_flag, char **input)
 	// dup2(devnull, 1);
 	// close(devnull);
 	// fclose(file);
-	return (1);
 }

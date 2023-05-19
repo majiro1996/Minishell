@@ -6,7 +6,7 @@
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/19 18:37:22 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:15:14 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define GREEN "\033[0;32m"
 # define BLUE "\033[0;36m"
 # define END "\033[0m"
+# define PROMPT "minishell>"
 
 typedef struct s_data
 {
