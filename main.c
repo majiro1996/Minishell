@@ -15,6 +15,12 @@
 int	ft_builtins(char **input, char **envp)
 {
 	(void)envp;
+	if (ft_strnstr(input[0], ">",
+		ft_strlen(input[0])) != NULL)
+		redirect_output(0, input);
+	else if (ft_strnstr(input[0], ">>",
+		ft_strlen(input[0])) != NULL)
+		redirect_output(1, input);
 	if (ft_strcmp(input[0], "cd") == 0)
 		ft_cd(input);
 	else if (ft_strcmp(input[0], "pwd") == 0)
@@ -30,8 +36,8 @@ int	ft_builtins(char **input, char **envp)
 	// 	ft_env(envp);
 	// else if (ft_strcmp(input[0], "exit") == 0)
 	// 	ft_exit(input);
-	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd"))
-		return (1);
+	// if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd"))
+	// 	return (1);
 	return (0);
 }
 
@@ -52,7 +58,7 @@ void	ft_launch_executable(char **input, int argc, char **argv, char **envp)
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
 		dup2(STDERR_FILENO, STDERR_FILENO);
 		if (execve(path, input, envp) == -1)
-			perror("minishell1");
+			printf("execution error: %s\n", strerror(8));
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)

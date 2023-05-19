@@ -20,6 +20,7 @@ END			=		\033[0m
 
 SRC =   main.c \
 		builtins.c \
+		redirections.c \
 
 OBJ = $(SRC:.c=.o)
 

@@ -21,6 +21,12 @@
 # include <readline/history.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <fcntl.h>
+
+#define GREEN "\033[0;32m"
+#define RED "\033[0;31m"
+#define END "\033[0m"
+
 
 typedef struct s_data
 {
@@ -33,4 +39,6 @@ typedef struct s_data
 void	ft_cd(char **input);
 void	ft_pwd(void);
 
+//redirections.c
+void    redirect_output(int append_flag, char **input);
 #endif
