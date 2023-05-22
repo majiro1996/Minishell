@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 15:05:39 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/22 18:46:42 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_builtins(t_data *data)
 
 	input = data->input;
 	if (ft_strcmp(data->input[0], "cd") == 0)
-		ft_cd(data->input);
+		ft_cd(data);
 	else if (ft_strcmp(data->input[0], "pwd") == 0)
 		ft_pwd();
 	else if (ft_strcmp(data->input[0], "echo") == 0)
@@ -30,8 +30,8 @@ int	ft_builtins(t_data *data)
 		ft_export(data);
 	// else if (ft_strcmp(input[0], "unset") == 0)
 	// 	ft_unset(input, envp);
-	//else if (ft_strcmp(input[0], "env") == 0)
-	//	ft_env(input, envp);
+	else if (ft_strcmp(input[0], "env") == 0)
+		ft_print_env(data->envp);
 	else if (ft_strcmp(data->input[0], "exit") == 0)
 		ft_exit(data->input);
 	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd")
@@ -89,12 +89,12 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strcmp(data.line, "") == 0)
 			continue ;
 		add_history(data.line);
-		data.input = ft_split(data.line, ' ');
+		data.input = ft_parse(&data);
 		builtins = ft_builtins(&data);
 		if (!builtins && data.input[0])
 			ft_launch_executable(data);
-		ft_clean_input(data);
+		ft_clean_input(&data);
 	}
-	//rl_clear_history();
+	//rl_clear_history(); //fix these leaks
 	return (0);
 }

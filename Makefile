@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/05/22 15:22:36 by manujime         ###   ########.fr        #
+#    Updated: 2023/05/22 18:31:17 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC =   main.c \
 		init.c \
 		clean_up.c \
 		export_utils.c \
+		parser.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -31,7 +32,7 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -l readline
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -l readline  -L .brew/opt/readline/lib -I .brew/opt/readline/include
 	@echo "$(GREEN)$(NAME) compiled"
 
 $(LIBFT):

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 16:00:12 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:40:48 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,25 @@
 //changes the current directory to the one specified in the input
 //if no input is specified, it changes the current directory to the home
 //directory
-void	ft_cd(char **input)
+void	ft_cd(t_data *data)
 {
-	if (input[1] == NULL)
+	char	*aux;
+
+	aux = data->input[1];
+	data->input[1] = ft_strjoin("OLDPWD=", getcwd(NULL, 0));
+	ft_update_env(data);
+	if (aux == NULL)
 	{
 		if (chdir(getenv("HOME")) != 0)
 			perror("cd");
 	}
-	else if (chdir(input[1]) != 0)
+	else if (chdir(aux) != 0)
 	{
 		printf("cd: %s", strerror(2));
-		printf(": %s\n", input[1]);
+		printf(": %s\n", aux);
 	}
+	data->input[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	ft_update_env(data);
 }
 
 //gets the curent working directory and prints it to stdout

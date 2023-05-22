@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:09:32 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/19 12:33:01 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:18:43 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_leaks(void)
 	system("leaks -q minishell");
 }
 
-void	ft_clean_input(t_data data)
+void	ft_clean_input(t_data *data)
 {
-	free(data.line);
-	free(data.input);
+	free(data->line);
+	free(data->input);
 }
