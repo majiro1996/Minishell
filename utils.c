@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:46:34 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/19 18:03:21 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/22 12:33:44 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_print_env(char **envp)
 }
 
 //adds a new environment variable to the envp array
-void	ft_add_env(char *input, char **envp)
+char	**ft_add_env(char *input, char **envp)
 {
 	static int	first;
 	int			c;
@@ -37,16 +37,19 @@ void	ft_add_env(char *input, char **envp)
 	while (envp[c])
 		c++;
 	new_envp = malloc(sizeof(char *) * (c + 2));
-	c = 0;
-	while (envp[c])
+	if (new_envp == NULL)
 	{
-		new_envp[c] = ft_strdup(envp[c]);
-		c++;
+		ft_putstr_fd("Error: malloc failed\n", STDERR_FILENO);
+		return (NULL);
 	}
+	c = -1;
+	while (envp[++c])
+		new_envp[c] = ft_strdup(envp[c]);
 	new_envp[c] = ft_strdup(input);
 	new_envp[c + 1] = NULL;
 	envp = new_envp;
 	if (first != 0)
-		free (envp);
+		ft_free_char_matrix(envp);
 	first++;
+	return (envp);
 }
