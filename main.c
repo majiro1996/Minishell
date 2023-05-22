@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/19 14:18:00 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:16:15 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,28 @@
 
 //checks if the first argument is a builtin command and if it is, executes it
 //and returns 1, if it isn't, returns 0
-int	ft_builtins(char **input, char **envp)
+int	ft_builtins(t_data *data)
 {
-	(void)envp;
-	if (ft_strcmp(input[0], "cd") == 0)
-		ft_cd(input);
-	else if (ft_strcmp(input[0], "pwd") == 0)
+	char	**input;
+
+	input = data->input;
+	if (ft_strcmp(data->input[0], "cd") == 0)
+		ft_cd(data);
+	else if (ft_strcmp(data->input[0], "pwd") == 0)
 		ft_pwd();
-	else if (ft_strcmp(input[0], "echo") == 0)
-		ft_echo(input);
-	//TODO: add the rest of the builtins
-	else if (ft_strcmp(input[0], "export") == 0)
-		ft_export(input, envp);
-	// else if (ft_strcmp(input[0], "unset") == 0)
-	// 	ft_unset(input, envp);
-	//else if (ft_strcmp(input[0], "env") == 0)
-	//	ft_env(input, envp);
-	else if (ft_strcmp(input[0], "exit") == 0)
-		ft_exit(input);
+	else if (ft_strcmp(data->input[0], "echo") == 0)
+		ft_echo(data->input);
+	else if (ft_strcmp(data->input[0], "export") == 0)
+		ft_export(data);
+	else if (ft_strcmp(input[0], "unset") == 0)
+		ft_unset(data);
+	else if (ft_strcmp(input[0], "env") == 0)
+		ft_print_env(data->envp);
+	else if (ft_strcmp(data->input[0], "exit") == 0)
+		ft_exit(data->input);
 	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd")
-		|| !ft_strcmp(input[0], "echo") || !ft_strcmp(input[0], "exit"))
+		|| !ft_strcmp(input[0], "echo") || !ft_strcmp(input[0], "exit")
+		|| !ft_strcmp(input[0], "export") || !ft_strcmp(input[0], "unset"))
 		return (1);
 	return (0);
 }
@@ -67,9 +69,9 @@ void	ft_launch_executable(t_data data)
 //this is the main function, it displays a prompt and waits for the user to
 //enter a command. It then reads the command and executes it. It loops until
 //the user presses ctrl-D or types exit.
-//atexit(ft_leaks);
 int	main(int argc, char **argv, char **envp)
 {
+	//atexit(ft_leaks);
 	int		builtins;
 	t_data	data;
 
@@ -86,11 +88,12 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strcmp(data.line, "") == 0)
 			continue ;
 		add_history(data.line);
-		data.input = ft_split(data.line, ' ');
-		builtins = ft_builtins(data.input, envp);
+		data.input = ft_parse(&data);
+		builtins = ft_builtins(&data);
 		if (!builtins && data.input[0])
 			ft_launch_executable(data);
-		ft_clean_input(data);
+		ft_clean_input(&data);
 	}
+	//rl_clear_history(); //fix these leaks
 	return (0);
 }
