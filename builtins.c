@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 12:42:19 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/22 16:00:12 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ void	ft_exit(char **input)
 	}
 }
 
-//export command with no options
+//export command, if there is no argument, it prints the environment
+//if there is one argument, it checks if it's valid and if it is, it updates
+//the environment variable if it exists, if it doesn't, it adds it to the
+//environment
 void	ft_export(t_data *data)
 {
 	int	c;
@@ -114,7 +117,10 @@ void	ft_export(t_data *data)
 	else if (c == 2)
 	{
 		if (ft_isalpha(data->input[1][0]) == 1)
-			data->envp = ft_add_env(data->input[1], data->envp);
+		{
+			if (!ft_update_env(data))
+				ft_add_env(data);
+		}
 		else
 		{
 			printf("export: %s", strerror(2));

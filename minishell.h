@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 12:41:01 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:47:43 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ void	ft_leaks(void);
 void	ft_init_data(t_data *data, int argc, char **argv, char **envp);
 void	ft_exit(char **input);
 void	ft_export(t_data *data);
-//utils.c
+//export_utils.c
 void	ft_print_env(char **envp);
-char	**ft_add_env(char *input, char **envp);
+int		ft_add_env(t_data *data);
+int		ft_update_env(t_data *data);
 
 #endif
