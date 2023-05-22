@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 18:41:04 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:59:43 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,6 @@ int		ft_update_env(t_data *data);
 //parser.c
 char	*ft_get_env(char *line, t_data *data);
 char	**ft_parse(t_data *data);
+//built_ins_2.c
+void	ft_unset(t_data *data);
 #endif

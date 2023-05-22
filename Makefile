@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/05/22 18:31:17 by manujime         ###   ########.fr        #
+#    Updated: 2023/05/22 19:59:13 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC =   main.c \
 		clean_up.c \
 		export_utils.c \
 		parser.c \
+		built_ins_2.c \
 
 OBJ = $(SRC:.c=.o)
 

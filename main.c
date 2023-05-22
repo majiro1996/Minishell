@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 18:46:42 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:16:15 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,17 @@ int	ft_builtins(t_data *data)
 		ft_pwd();
 	else if (ft_strcmp(data->input[0], "echo") == 0)
 		ft_echo(data->input);
-	//TODO: add the rest of the builtins
 	else if (ft_strcmp(data->input[0], "export") == 0)
 		ft_export(data);
-	// else if (ft_strcmp(input[0], "unset") == 0)
-	// 	ft_unset(input, envp);
+	else if (ft_strcmp(input[0], "unset") == 0)
+		ft_unset(data);
 	else if (ft_strcmp(input[0], "env") == 0)
 		ft_print_env(data->envp);
 	else if (ft_strcmp(data->input[0], "exit") == 0)
 		ft_exit(data->input);
 	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd")
 		|| !ft_strcmp(input[0], "echo") || !ft_strcmp(input[0], "exit")
-		|| !ft_strcmp(input[0], "export"))
+		|| !ft_strcmp(input[0], "export") || !ft_strcmp(input[0], "unset"))
 		return (1);
 	return (0);
 }
@@ -72,7 +71,7 @@ void	ft_launch_executable(t_data data)
 //the user presses ctrl-D or types exit.
 int	main(int argc, char **argv, char **envp)
 {
-	atexit(ft_leaks);
+	//atexit(ft_leaks);
 	int		builtins;
 	t_data	data;
 
