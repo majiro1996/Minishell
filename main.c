@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/23 14:01:03 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:28:25 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strcmp(data.line, "") == 0)
 			continue ;
 		add_history(data.line);
-		data.input = ft_parse(&data);
+		ft_parse(&data);
 		builtins = ft_builtins(&data);
 		if (!builtins && data.input[0])
 			ft_launch_executable(data);
