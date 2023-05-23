@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 20:16:15 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/23 14:01:03 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	ft_builtins(t_data *data)
 		ft_exit(data->input);
 	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd")
 		|| !ft_strcmp(input[0], "echo") || !ft_strcmp(input[0], "exit")
-		|| !ft_strcmp(input[0], "export") || !ft_strcmp(input[0], "unset"))
+		|| !ft_strcmp(input[0], "export") || !ft_strcmp(input[0], "unset")
+		|| !ft_strcmp(input[0], "env"))
 		return (1);
 	return (0);
 }
