@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 20:16:15 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:35:44 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	ft_builtins(t_data *data)
 void	ft_launch_executable(t_data data)
 {
 	pid_t	pid;
+	pid_t	son;
 	int		status;
 	char	*path;
 
@@ -62,7 +63,9 @@ void	ft_launch_executable(t_data data)
 		perror(path);
 	else
 	{
-		waitpid(pid, &status, WUNTRACED);
+		son = waitpid(pid, &status, WUNTRACED);
+		if (WIFEXITED(son))
+			data.actual_status = WEXITSTATUS(son);
 	}
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
+#    By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/05/22 19:59:13 by manujime         ###   ########.fr        #
+#    Updated: 2023/05/23 19:47:25 by albgonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC =   main.c \
 		export_utils.c \
 		parser.c \
 		built_ins_2.c \
+		signals.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -33,7 +34,7 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -l readline  -L .brew/opt/readline/lib -I .brew/opt/readline/include
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -l readline
 	@echo "$(GREEN)$(NAME) compiled"
 
 $(LIBFT):

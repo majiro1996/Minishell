@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 20:23:43 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/23 20:18:00 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,12 @@ char	**ft_parse(t_data *data)
 	while (input[c])
 	{
 		if (input[c][0] == '$')
-			input[c] = ft_get_env(input[c] + 1, data);
+		{
+			if (input[c][1] == '?')
+				input[c] = ft_itoa(data->actual_status);
+			else
+				input[c] = ft_get_env(input[c] + 1, data);
+		}
 		c++;
 	}
 	return (input);
