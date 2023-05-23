@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/18 14:12:32 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/23 19:42:41 by albgonza         ###   ########.fr       */
+/*   Created: 2023/05/23 19:02:07 by albgonza          #+#    #+#             */
+/*   Updated: 2023/05/23 19:46:55 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_init_data(t_data *data, int argc, char **argv, char **envp)
+void	signal_handler(int signal, siginfo_t *info, void *uap)
 {
-	data->argc = argc;
-	data->argv = argv;
-	data->envp = envp;
-	signal_setter();
+	(void)uap;
+	if (signal == SIGINT)
+	{
+		kill(info->si_pid, SIGINT);
+	}
+}
+
+void	signal_setter(void)
+{
+	struct sigaction	sa;
+
+	sa.sa_sigaction = &signal_handler;
+	sa.sa_flags = SA_SIGINFO;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 }

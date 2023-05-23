@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 19:59:43 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/23 19:54:51 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
@@ -34,6 +35,7 @@ typedef struct s_data
 	char	**envp;
 	char	**argv;
 	int		argc;
+	int		actual_status;
 }	t_data;
 
 //builtins.c
@@ -57,4 +59,6 @@ char	*ft_get_env(char *line, t_data *data);
 char	**ft_parse(t_data *data);
 //built_ins_2.c
 void	ft_unset(t_data *data);
+//signals.c
+void	signal_setter(void);
 #endif
