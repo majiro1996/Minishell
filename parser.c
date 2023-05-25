@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/23 20:50:44 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/25 23:14:28 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,70 +35,21 @@ char	*ft_get_env(char *input, t_data *data)
 	return (NULL);
 }
 
-//counts the number of instances of a character in a string
-int	ft_count_char(char *str, char a)
-{
-	int	c;
-	int	k;
-
-	c = 0;
-	k = 0;
-	while (str[c])
-	{
-		if (str[c] == a)
-			k++;
-		c++;
-	}
-	return (k);
-}
-
-//removes all instances of a character from the line string of 
-//the data struct
-void	ft_remove_char(t_data *data, char a, int count)
+//removes the character in the delete position of the data->line string
+void	ft_remove_char(t_data *data, int delete)
 {
 	int		c;
 	int		k;
-	int		len;
 	char	*new;
 
 	c = 0;
 	k = 0;
-	len = ft_strlen(data->line) - count;
-	new = malloc(sizeof(char) * (len + 1));
+	new = malloc(sizeof(char) * ft_strlen(data->line));
 	if (!new)
 		return ;
 	while (data->line[c])
 	{
-		if (data->line[c] != a)
-		{
-			new[k] = data->line[c];
-			k++;
-		}
-		c++;
-	}
-	new[k] = '\0';
-	free(data->line);
-	data->line = new;
-}
-
-//removes all instances of single quotes from the line string of
-//the data struct
-void	ft_single_quote(t_data *data)
-{
-	int		c;
-	int		k;
-	int		len;
-	char	*new;
-
-	c = 0;
-	k = 0;
-	len = ft_strlen(data->line) - ft_count_char(data->line, '\'');
-	new = malloc(sizeof(char) * (len + 1));
-	if (!new)
-		return ;
-	while (data->line[c])
-	{
-		if (data->line[c] != '\'')
+		if (c != delete)
 		{
 			new[k] = data->line[c];
 			k++;
@@ -116,13 +67,9 @@ void	ft_parse(t_data *data)
 {
 	char	**input;
 	int		c;
-	int		q_count;
 
 	c = 0;
-	q_count = ft_count_char(data->line, '\"');
-	if (q_count)
-		ft_remove_char(data, '\"', q_count);
-	ft_single_quote(data);
+	ft_input_parse(data);
 	input = ft_split(data->line, ' ');
 	if (!input)
 		return ;

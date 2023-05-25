@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/23 14:29:26 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/25 23:15:27 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,18 @@
 # define BLUE "\033[0;36m"
 # define END "\033[0m"
 
+typedef struct s_input
+{
+	char			*content;
+	int				type;
+	struct s_input	*next;
+}	t_input;
+
 typedef struct s_data
 {
 	char	*line;
 	char	**input;
+	t_input	*list;
 	char	**envp;
 	char	**argv;
 	int		argc;
@@ -55,6 +63,8 @@ int		ft_update_env(t_data *data);
 //parser.c
 char	*ft_get_env(char *line, t_data *data);
 void	ft_parse(t_data *data);
+//parser_list.c
+void	ft_input_parse(t_data *data);
 //built_ins_2.c
 void	ft_unset(t_data *data);
 #endif
