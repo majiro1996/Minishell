@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:43:08 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/29 16:31:58 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:08:48 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,15 @@ void	ft_remove_quotes(t_input *list)
 	list->content = new;
 }
 
-void	ft_replace_var(t_input *input, t_data *data)
+//takes the variable name afther the $ and replaces it with its value
+//if the variable is not found, it is replaced with an empty string
+void	ft_replace_var(t_input *input)
 {
-	int		c;
-
-	c = 0;
-	while (input->splitted[c])
+	if (input->type == 1)
+		return ;
+	if (ft_strchr(input->content, '$'))
 	{
-		if (input->splitted[c][0] == '$')
-			input->splitted[c] = ft_get_env(input->splitted[c] + 1, data);
-		c++;
-		//printf("replaced: %s\n", input->splitted[c]);//
+		printf("there is a $ in %s\n", input->content);//debug//
 	}
 }
 
@@ -62,10 +60,9 @@ void	ft_split_content(t_data *data)
 		if (aux->type == 1 || aux->type == 2)
 			ft_remove_quotes(aux);
 		printf("non-quoted: %s\n", aux->content);//debug//
-		aux->splitted = ft_split(aux->content, ' ');
 		if (aux->type == 0 || aux->type == 2)
 		{
-			ft_replace_var(aux, data);
+			ft_replace_var(aux);
 		}
 		aux = aux->next;
 	}

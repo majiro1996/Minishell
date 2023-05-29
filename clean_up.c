@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:09:32 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/29 15:55:28 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:06:33 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_clean_list(t_input *list)
 	{
 		tmp = list->next;
 		free(list->content);
-		free(list->splitted);
 		free(list);
 		list = tmp;
 	}

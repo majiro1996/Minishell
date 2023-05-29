@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/29 15:54:04 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:10:34 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,26 @@ void	ft_launch_executable(t_data data)
 	}
 }
 
-//updates the value of the SHLVL and SHELL variables
-//on the data->envp array
-// void	ft_lvlup_name(t_data *data)
-// {
-// 	//code
-// }
+//updates the SHLVL variable
+void	ft_shlvl(t_data *data)
+{
+	int		c;
+	char	*tmp;
+
+	c = 0;
+	while (data->envp[c])
+	{
+		if (ft_strcmp("SHLVL", ft_get_var(data->envp[c])) == 0)
+		{
+			tmp = ft_strjoin("SHLVL=",
+					ft_itoa(ft_atoi(data->envp[c] + 6) + 1));
+			free(data->envp[c]);
+			data->envp[c] = tmp;
+			break ;
+		}
+		c++;
+	}
+}
 
 //this is the main function, it displays a prompt and waits for the user to
 //enter a command. It then reads the command and executes it. It loops until
@@ -84,7 +98,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	ft_init_data(&data, argc, argv, envp);
-	//ft_lvlup_name(&data);
+	ft_shlvl(&data);
 	while (1)
 	{
 		builtins = 0;

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/29 16:22:14 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:43:50 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 typedef struct s_input
 {
 	char			*content;
-	char			**splitted;
 	int				type;
 	struct s_input	*next;
 }	t_input;
