@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/23 16:04:37 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:54:04 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ void	ft_launch_executable(t_data data)
 	}
 }
 
+//updates the value of the SHLVL and SHELL variables
+//on the data->envp array
+// void	ft_lvlup_name(t_data *data)
+// {
+// 	//code
+// }
+
 //this is the main function, it displays a prompt and waits for the user to
 //enter a command. It then reads the command and executes it. It loops until
 //the user presses ctrl-D or types exit.
@@ -77,6 +84,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	ft_init_data(&data, argc, argv, envp);
+	//ft_lvlup_name(&data);
 	while (1)
 	{
 		builtins = 0;

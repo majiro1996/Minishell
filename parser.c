@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/29 13:03:25 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:21:58 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,29 +59,6 @@ void	ft_remove_char(t_data *data, int delete)
 	new[k] = '\0';
 	free(data->list->content);
 	data->list->content = new;
-}
-
-//removes quotes from quoted strings
-void	ft_remove_quotes(t_data *data)
-{
-	int		c;
-	t_input	*tmp;
-
-	c = 0;
-	tmp = data->list;
-	while (tmp)
-	{
-		while (tmp->content[c])
-		{
-			if (tmp->type == 1 && tmp->content[c] == '\'')
-				ft_remove_char(data, c);
-			else if (tmp->type == 2 && tmp->content[c] == '\"')
-				ft_remove_char(data, c);
-			c++;
-		}
-		c = 0;
-		tmp = tmp->next;
-	}
 }
 
 //parses the line string of the data struct
