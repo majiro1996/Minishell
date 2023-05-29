@@ -14,8 +14,10 @@
 
 void	ft_init_data(t_data *data, int argc, char **argv, char **envp)
 {
+	data = malloc(sizeof(t_data));
 	data->argc = argc;
 	data->argv = argv;
 	data->envp = envp;
+	data->actual_status = malloc(sizeof(int));
 	signal_setter();
 }
