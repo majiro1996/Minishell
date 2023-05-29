@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/29 18:10:34 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:43:00 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,39 @@ void	ft_shlvl(t_data *data)
 	}
 }
 
+//updates the SHELL variable to the path of the executable
+//and calls ft_shlvl to update the SHLVL variable
+void	ft_shell_name(t_data *data)
+{
+	int		c;
+	char	*tmp;
+
+	c = 0;
+	while (data->envp[c])
+	{
+		if (ft_strcmp("SHELL", ft_get_var(data->envp[c])) == 0)
+		{
+			tmp = ft_strjoin("SHELL=", "/minishell");
+			free(data->envp[c]);
+			data->envp[c] = tmp;
+			free(tmp);
+			break ;
+		}
+		c++;
+	}
+	ft_shlvl(data);
+}
+
 //this is the main function, it displays a prompt and waits for the user to
 //enter a command. It then reads the command and executes it. It loops until
 //the user presses ctrl-D or types exit.
 int	main(int argc, char **argv, char **envp)
 {
-	//atexit(ft_leaks);
 	int		builtins;
 	t_data	data;
 
 	ft_init_data(&data, argc, argv, envp);
-	ft_shlvl(&data);
+	ft_shell_name(&data);
 	while (1)
 	{
 		builtins = 0;
