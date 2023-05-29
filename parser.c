@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/25 23:14:28 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/29 13:03:25 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	ft_remove_char(t_data *data, int delete)
 
 	c = 0;
 	k = 0;
-	new = malloc(sizeof(char) * ft_strlen(data->line));
+	new = malloc(sizeof(char) * ft_strlen(data->list->content));
 	if (!new)
 		return ;
-	while (data->line[c])
+	while (data->list->content[c])
 	{
 		if (c != delete)
 		{
@@ -57,8 +57,31 @@ void	ft_remove_char(t_data *data, int delete)
 		c++;
 	}
 	new[k] = '\0';
-	free(data->line);
-	data->line = new;
+	free(data->list->content);
+	data->list->content = new;
+}
+
+//removes quotes from quoted strings
+void	ft_remove_quotes(t_data *data)
+{
+	int		c;
+	t_input	*tmp;
+
+	c = 0;
+	tmp = data->list;
+	while (tmp)
+	{
+		while (tmp->content[c])
+		{
+			if (tmp->type == 1 && tmp->content[c] == '\'')
+				ft_remove_char(data, c);
+			else if (tmp->type == 2 && tmp->content[c] == '\"')
+				ft_remove_char(data, c);
+			c++;
+		}
+		c = 0;
+		tmp = tmp->next;
+	}
 }
 
 //parses the line string of the data struct
@@ -70,6 +93,7 @@ void	ft_parse(t_data *data)
 
 	c = 0;
 	ft_input_parse(data);
+	ft_split_content(data);
 	input = ft_split(data->line, ' ');
 	if (!input)
 		return ;

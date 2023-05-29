@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/25 23:15:27 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/29 13:01:00 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,14 @@
 # define BLUE "\033[0;36m"
 # define END "\033[0m"
 
+# define N0_QUOTE 0
+# define SI_QUOTE 1
+# define DO_QUOTE 2
+
 typedef struct s_input
 {
 	char			*content;
+	char			**splitted;
 	int				type;
 	struct s_input	*next;
 }	t_input;
@@ -62,7 +67,10 @@ int		ft_add_env(t_data *data);
 int		ft_update_env(t_data *data);
 //parser.c
 char	*ft_get_env(char *line, t_data *data);
+void	ft_remove_quotes(t_data *data);
 void	ft_parse(t_data *data);
+//parser_sign.c
+void	ft_split_content(t_data *data);
 //parser_list.c
 void	ft_input_parse(t_data *data);
 //built_ins_2.c
