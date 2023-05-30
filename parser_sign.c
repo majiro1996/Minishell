@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:43:08 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/29 18:08:48 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:32:17 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,61 @@ void	ft_remove_quotes(t_input *list)
 	list->content = new;
 }
 
-//takes the variable name afther the $ and replaces it with its value
-//if the variable is not found, it is replaced with an empty string
-void	ft_replace_var(t_input *input)
+void	ft_rep_lace(t_input *input, int s, int e, char *val)
 {
-	if (input->type == 1)
+	int		c;
+	int		k;
+	char	*new;
+
+	c = 0;
+	k = 0;
+	printf("s: %d\n", s);
+	printf("e: %d\n", e);
+	new = malloc(sizeof(char) * (ft_strlen(input->content)
+				- (e - s) + ft_strlen(val) + 1));
+	if (!new)
 		return ;
-	if (ft_strchr(input->content, '$'))
+	while (c < s)
+		new[k++] = input->content[c++];
+	c = 0;
+	while (val[c])
+		new[k++] = val[c++];
+	c = e + 1;
+	while (input->content[c])
+		new[k++] = input->content[c++];
+	new[k] = '\0';
+	free(input->content);
+	input->content = new;
+	printf("new: %s\n", new);
+}
+
+//takes the position of the first and las character of the variable name
+//makes a substring of the variable name
+//searches for the variable name in the env list
+//if it finds it, it replaces the variable name with the value
+void	ft_replace_var(t_input *input, t_data *data)
+{
+	int		s;
+	int		e;
+	char	*var;
+	char	*val;
+
+	s = 0;
+	e = 0;
+	while (input->content[e] && input->content[e] != '$')
+		e++;
+	if (input->content[e] == '$')
 	{
-		printf("there is a $ in %s\n", input->content);//debug//
+		s = e + 1;
+		while (input->content[e]
+			&& ft_strchr("\"\' $<>|", input->content[e]) == NULL)
+			e++;
+		var = ft_substr(input->content, s, e - s);
+		val = ft_get_env(var, data);
+		if (val)
+			ft_rep_lace(input, s - 1, s + ft_strlen(var), val);
+		free(var);
+		free(val);
 	}
 }
 
@@ -60,9 +106,9 @@ void	ft_split_content(t_data *data)
 		if (aux->type == 1 || aux->type == 2)
 			ft_remove_quotes(aux);
 		printf("non-quoted: %s\n", aux->content);//debug//
-		if (aux->type == 0 || aux->type == 2)
+		if ((aux->type == 0 || aux->type == 2))
 		{
-			ft_replace_var(aux);
+			ft_replace_var(aux, data);
 		}
 		aux = aux->next;
 	}
