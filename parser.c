@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 12:42:25 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:07:40 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,33 @@ char	*ft_get_env(char *input, t_data *data)
 }
 
 //removes the character in the delete position of the data->line string
-void	ft_remove_char(t_data *data, int delete)
+// void	ft_remove_char(t_data *data, int delete)
+// {
+// 	int		c;
+// 	int		k;
+// 	char	*new;
+
+// 	c = 0;
+// 	k = 0;
+// 	new = malloc(sizeof(char) * ft_strlen(data->list->content));
+// 	if (!new)
+// 		return ;
+// 	while (data->list->content[c])
+// 	{
+// 		if (c != delete)
+// 		{
+// 			new[k] = data->line[c];
+// 			k++;
+// 		}
+// 		c++;
+// 	}
+// 	new[k] = '\0';
+// 	free(data->list->content);
+// 	data->list->content = new;
+// }
+
+//joins the content of all the nodes of the list into a single string
+char	*ft_full_join(t_input *list)
 {
 	int		c;
 	int		k;
@@ -44,21 +70,22 @@ void	ft_remove_char(t_data *data, int delete)
 
 	c = 0;
 	k = 0;
-	new = malloc(sizeof(char) * ft_strlen(data->list->content));
+	new = malloc(sizeof(char) * ft_strlen(list->content));
 	if (!new)
-		return ;
-	while (data->list->content[c])
+		return (NULL);
+	while (list)
 	{
-		if (c != delete)
+		while (list->content[c])
 		{
-			new[k] = data->line[c];
+			new[k] = list->content[c];
 			k++;
+			c++;
 		}
-		c++;
+		list = list->next;
+		c = 0;
 	}
 	new[k] = '\0';
-	free(data->list->content);
-	data->list->content = new;
+	return (new);
 }
 
 //parses the line string of the data struct
@@ -67,18 +94,17 @@ void	ft_parse(t_data *data)
 {
 	char	**input;
 	int		c;
+	char	*tmp;
 
 	c = 0;
 	ft_input_parse(data);
-	ft_split_content(data);
-	input = ft_split(data->line, ' ');
+	ft_search_and_replace(data);
+	tmp = ft_full_join(data->list);
+	printf("new: %s\n", tmp);
+	input = ft_split(tmp, ' ');
+	printf("tmp: %s\n", tmp);
 	if (!input)
 		return ;
-	while (input[c])
-	{
-		if (input[c][0] == '$')
-			input[c] = ft_get_env(input[c] + 1, data);
-		c++;
-	}
 	data->input = input;
+	free(tmp);
 }

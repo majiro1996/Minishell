@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:43:08 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 14:32:17 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:41:15 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	ft_rep_lace(t_input *input, int s, int e, char *val)
 
 	c = 0;
 	k = 0;
-	printf("s: %d\n", s);
-	printf("e: %d\n", e);
 	new = malloc(sizeof(char) * (ft_strlen(input->content)
 				- (e - s) + ft_strlen(val) + 1));
 	if (!new)
@@ -54,13 +52,12 @@ void	ft_rep_lace(t_input *input, int s, int e, char *val)
 	c = 0;
 	while (val[c])
 		new[k++] = val[c++];
-	c = e + 1;
+	c = e;
 	while (input->content[c])
 		new[k++] = input->content[c++];
 	new[k] = '\0';
 	free(input->content);
 	input->content = new;
-	printf("new: %s\n", new);
 }
 
 //takes the position of the first and las character of the variable name
@@ -80,10 +77,11 @@ void	ft_replace_var(t_input *input, t_data *data)
 		e++;
 	if (input->content[e] == '$')
 	{
-		s = e + 1;
+		e++;
+		s = e;
 		while (input->content[e]
-			&& ft_strchr("\"\' $<>|", input->content[e]) == NULL)
-			e++;
+			&& ft_strchr("'\"><| $", input->content[e]) == NULL)
+				e++;
 		var = ft_substr(input->content, s, e - s);
 		val = ft_get_env(var, data);
 		if (val)
@@ -93,10 +91,10 @@ void	ft_replace_var(t_input *input, t_data *data)
 	}
 }
 
-//split the content of each input node
-//removes the closed quotes and if the node if of type 0 or 2,
-//replaces the variables with their values
-void	ft_split_content(t_data *data)
+//searches for variables in the list->content string
+//if it finds one, it replaces it with the value of the variable
+//if the content is a quoted string, it removes the closed quotes
+void	ft_search_and_replace(t_data *data)
 {
 	t_input	*aux;
 
@@ -105,11 +103,9 @@ void	ft_split_content(t_data *data)
 	{
 		if (aux->type == 1 || aux->type == 2)
 			ft_remove_quotes(aux);
-		printf("non-quoted: %s\n", aux->content);//debug//
-		if ((aux->type == 0 || aux->type == 2))
-		{
+		while ((aux->type == 0 || aux->type == 2)
+			&& ft_strchr(aux->content, '$'))
 			ft_replace_var(aux, data);
-		}
 		aux = aux->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:09:32 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/29 18:13:51 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:41:51 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	ft_clean_input(t_data *data)
 
 	tmp = data->list;
 	free(data->line);
-	free(data->input);
 	ft_clean_list(tmp);
 	data->list = NULL;
 }

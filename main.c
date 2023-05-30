@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 12:42:03 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:59:55 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,19 @@ int	ft_builtins(t_data *data)
 
 //Search and launch the right executable (based on the PATH variable or using a
 //relative or an absolute path)
-void	ft_launch_executable(t_data data)
+void	ft_launch_executable(t_data *data)
 {
 	pid_t	pid;
 	int		status;
 	char	*path;
 
-	path = data.input[0];
+	path = data->input[0];
 	pid = fork();
 	if (pid == 0)
 	{
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
 		dup2(STDERR_FILENO, STDERR_FILENO);
-		if (execve(path, data.input, data.envp) == -1)
+		if (execve(path, data->input, data->envp) == -1)
 			perror(path);
 		exit(EXIT_FAILURE);
 	}
@@ -136,7 +136,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_parse(&data);
 		builtins = ft_builtins(&data);
 		if (!builtins && data.input[0])
-			ft_launch_executable(data);
+			ft_launch_executable(&data);
 		ft_clean_input(&data);
 	}
 	//rl_clear_history(); //fix these leaks

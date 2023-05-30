@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:14:27 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/29 15:57:11 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:42:28 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_set_input_type(t_data *data)
 			tmp->type = 2;
 		else
 			tmp->type = 0;
-		printf("content: %s type: %d\n", tmp->content, tmp->type);//TODO: remove this line
 		tmp = tmp->next;
 	}
 }
