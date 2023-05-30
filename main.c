@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 17:59:55 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/30 23:17:35 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,19 @@ void	ft_shlvl(t_data *data)
 void	ft_shell_name(t_data *data)
 {
 	int		c;
-	char	*tmp;
+	char	*aux;
+	char	*path;
 
 	c = 0;
+	path = getcwd(NULL, 0);
 	while (data->envp[c])
 	{
 		if (ft_strcmp("SHELL", ft_get_var(data->envp[c])) == 0)
 		{
-			tmp = ft_strjoin("SHELL=", "/minishell");
+			aux = ft_strjoin("SHELL=", path);
+			free(path);
 			free(data->envp[c]);
-			data->envp[c] = tmp;
-			free(tmp);
+			data->envp[c] = aux;
 			break ;
 		}
 		c++;
@@ -120,7 +122,7 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	ft_init_data(&data, argc, argv, envp);
-	//ft_shell_name(&data);
+	ft_shell_name(&data);
 	while (1)
 	{
 		builtins = 0;
