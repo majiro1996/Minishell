@@ -6,7 +6,7 @@
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 17:12:15 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:50:56 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_data
 	char	**envp;
 	char	**argv;
 	int		argc;
-	int		*actual_status;
+	int		actual_status;
 }	t_data;
 
 //builtins.c

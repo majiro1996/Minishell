@@ -6,7 +6,7 @@
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 17:12:36 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:03:12 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	ft_builtins(t_data *data)
 void	ft_launch_executable(t_data *data)
 {
 	pid_t	pid;
-	pid_t	son;
 	int		status;
 	char	*path;
 
@@ -63,18 +62,21 @@ void	ft_launch_executable(t_data *data)
 		perror(path);
 	else
 	{
-		son = waitpid(pid, &status, WUNTRACED);
-		if (WIFEXITED(son))
-			*(data->actual_status) = WEXITSTATUS(status);
+		waitpid(pid, &status, WUNTRACED);
+		if (pid > 0)
+		{
+			if (WIFEXITED(status))
+				data->actual_status = WEXITSTATUS(status);
+		}
 	}
 }
 
 //this is the main function, it displays a prompt and waits for the user to
 //enter a command. It then reads the command and executes it. It loops until
 //the user presses ctrl-D or types exit.
+//atexit(ft_leaks);
 int	main(int argc, char **argv, char **envp)
 {
-	//atexit(ft_leaks);
 	int		builtins;
 	t_data	data;
 
