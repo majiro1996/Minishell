@@ -6,7 +6,7 @@
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 18:33:15 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:21:55 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,12 @@ int	ft_builtins(t_data *data)
 //relative or an absolute path)
 void	ft_launch_executable(t_data *data)
 {
-	pid_t	pid;
 	int		status;
 	char	*path;
 
 	path = data->input[0];
-	pid = fork();
-	if (pid == 0)
+	data->child = fork();
+	if (data->child == 0)
 	{
 		dup2(STDOUT_FILENO, STDOUT_FILENO);
 		dup2(STDERR_FILENO, STDERR_FILENO);
@@ -58,12 +57,12 @@ void	ft_launch_executable(t_data *data)
 			perror(path);
 		exit(EXIT_FAILURE);
 	}
-	else if (pid < 0)
+	else if (data->child < 0)
 		perror(path);
 	else
 	{
-		waitpid(pid, &status, WUNTRACED);
-		if (pid > 0)
+		waitpid(data->child, &status, WUNTRACED);
+		if (data->child > 0)
 		{
 			if (WIFEXITED(status))
 				data->actual_status = WEXITSTATUS(status);

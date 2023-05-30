@@ -6,7 +6,7 @@
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 17:50:56 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:25:54 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_data
 	char	**argv;
 	int		argc;
 	int		actual_status;
+	pid_t	child;
 }	t_data;
 
 //builtins.c
@@ -61,4 +62,5 @@ char	**ft_parse(t_data *data);
 void	ft_unset(t_data *data);
 //signals.c
 void	signal_setter(void);
+void	signal_handler(int signal);
 #endif
