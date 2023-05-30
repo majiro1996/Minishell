@@ -6,7 +6,7 @@
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/23 20:35:44 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:12:36 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_launch_executable(t_data *data)
 	{
 		son = waitpid(pid, &status, WUNTRACED);
 		if (WIFEXITED(son))
-			data->actual_status = WEXITSTATUS(status);
+			*(data->actual_status) = WEXITSTATUS(status);
 	}
 }
 

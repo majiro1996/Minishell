@@ -6,7 +6,7 @@
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/23 20:18:00 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:14:53 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ char	**ft_parse(t_data *data)
 		if (input[c][0] == '$')
 		{
 			if (input[c][1] == '?')
-				input[c] = ft_itoa(data->actual_status);
+			{
+				printf("%d\n", *(data->actual_status));
+				// input[c] = ft_itoa(*(data->actual_status));
+			}
 			else
 				input[c] = ft_get_env(input[c] + 1, data);
 		}
