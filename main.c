@@ -6,7 +6,7 @@
 /*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 18:03:12 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:33:15 by albgonza         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_launch_executable(t_data *data)
 //this is the main function, it displays a prompt and waits for the user to
 //enter a command. It then reads the command and executes it. It loops until
 //the user presses ctrl-D or types exit.
-//atexit(ft_leaks);
+// atexit(ft_leaks);
 int	main(int argc, char **argv, char **envp)
 {
 	int		builtins;
@@ -99,6 +99,6 @@ int	main(int argc, char **argv, char **envp)
 			ft_launch_executable(&data);
 		ft_clean_input(&data);
 	}
-	//rl_clear_history(); //fix these leaks
+	rl_clear_history();
 	return (0);
 }

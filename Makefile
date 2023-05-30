@@ -6,7 +6,7 @@
 #    By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/05/23 19:47:25 by albgonza         ###   ########.fr        #
+#    Updated: 2023/05/30 18:31:28 by albgonza         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,19 +29,24 @@ SRC =   main.c \
 
 OBJ = $(SRC:.c=.o)
 
+INC		= -I/Users/$(USER)/.brew/opt/readline/include
+
+LFLAGS	= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
+
 NAME = minishell
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -l readline
-	@echo "$(GREEN)$(NAME) compiled"
-
 $(LIBFT):
 	@make extra -C libft
+	
+$(NAME): $(LIBFT) $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LFLAGS) $(INC) -o $(NAME)
+	@echo "$(GREEN)$(NAME) compiled"
+
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 
 bonus: $(BONUS)
 
