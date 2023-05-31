@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:14:27 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/31 17:14:41 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:46:47 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 //0 = non-quoted string
 //1 = single quoted string
 //2 = double quoted string
+//3 = 
 void	ft_set_input_type(t_data *data)
 {
 	t_input	*tmp;
@@ -23,14 +24,14 @@ void	ft_set_input_type(t_data *data)
 	tmp = data->list;
 	while (tmp)
 	{
-		if (tmp->content[0] == '\''
-			&& tmp->content[ft_strlen(tmp->content) - 1] == '\''
-			&& ft_strlen(tmp->content) > 1)
+		if (tmp->content[0] == '\'' && ft_strlen(tmp->content) > 1
+			&& tmp->content[ft_strlen(tmp->content) - 1] == '\'')
 			tmp->type = 1;
-		else if (tmp->content[0] == '\"'
-			&& tmp->content[ft_strlen(tmp->content) - 1] == '\"'
-			&& ft_strlen(tmp->content) > 1)
+		else if (tmp->content[0] == '\"' && ft_strlen(tmp->content) > 1
+			&& tmp->content[ft_strlen(tmp->content) - 1] == '\"')
 			tmp->type = 2;
+		else if (tmp->content[0] == '<' && ft_strlen(tmp->content) == 2)
+			tmp->type = 3;
 		else
 			tmp->type = 0;
 		tmp = tmp->next;
