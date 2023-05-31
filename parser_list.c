@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:14:27 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/31 18:46:47 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:50:22 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 //sets the type of the input node
 //0 = non-quoted string
-//1 = single quoted string
-//2 = double quoted string
-//3 = 
+//1 = '' single quoted string
+//2 = "" double quoted string
+//3 = << here document
+//4 = <  input redirect
+//5 = >> output redirect append
+//6 = >  output redirect overwrite
+//7 = | pipe
 void	ft_set_input_type(t_data *data)
 {
 	t_input	*tmp;
@@ -32,6 +36,14 @@ void	ft_set_input_type(t_data *data)
 			tmp->type = 2;
 		else if (tmp->content[0] == '<' && ft_strlen(tmp->content) == 2)
 			tmp->type = 3;
+		else if (tmp->content[0] == '<' && ft_strlen(tmp->content) == 1)
+			tmp->type = 4;
+		else if (tmp->content[0] == '>' && ft_strlen(tmp->content) == 2)
+			tmp->type = 5;
+		else if (tmp->content[0] == '>' && ft_strlen(tmp->content) == 1)
+			tmp->type = 6;
+		else if (tmp->content[0] == '|')
+			tmp->type = 7;
 		else
 			tmp->type = 0;
 		tmp = tmp->next;
