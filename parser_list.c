@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:14:27 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/31 13:32:38 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:14:41 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ void	ft_set_input_type(t_data *data)
 	while (tmp)
 	{
 		if (tmp->content[0] == '\''
-			&& tmp->content[ft_strlen(tmp->content) - 1] == '\'')
+			&& tmp->content[ft_strlen(tmp->content) - 1] == '\''
+			&& ft_strlen(tmp->content) > 1)
 			tmp->type = 1;
 		else if (tmp->content[0] == '\"'
-			&& tmp->content[ft_strlen(tmp->content) - 1] == '\"')
+			&& tmp->content[ft_strlen(tmp->content) - 1] == '\"'
+			&& ft_strlen(tmp->content) > 1)
 			tmp->type = 2;
 		else
 			tmp->type = 0;

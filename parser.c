@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/31 13:33:36 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:15:43 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ void	ft_parse(t_data *data)
 	char	*tmp;
 
 	ft_input_parse(data);
+	//ft_print_input(data->list);//
 	ft_search_and_replace(data);
-	//ft_print_input(data->list);
+	//ft_print_input(data->list);//
 	tmp = ft_full_join(data->list);
 	//printf("new: %s\n", tmp);
 	input = ft_split(tmp, ' ');//
