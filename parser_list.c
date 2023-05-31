@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:14:27 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 18:42:28 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:32:38 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ void	ft_new_node(t_data *data, int s, int e)
 	new->content = str;
 	new->type = 0;
 	new->next = NULL;
+	new->prev = NULL;
 	if (!data->list)
 		data->list = new;
 	else
 	{
+		new->prev = data->list;
 		tmp = data->list;
 		while (tmp->next)
 			tmp = tmp->next;
@@ -79,6 +81,22 @@ void	ft_quote_node(t_data *data, int *start, int *counter, char quote)
 	*counter = c;
 }
 
+//makes a new node for the pipes and redirects from the unquoted
+//part of the input string
+void	ft_repi_node(t_data *data, int *start, int *counter, char div)
+{
+	int	c;
+	int	s;
+
+	c = *counter;
+	s = *start;
+	c++;
+	if (data->line[c] == div && div != '|')
+		c++;
+	ft_new_node(data, s, c);
+	*counter = c;
+}
+
 //divides the data->line string into nodes
 //each node contains a string surrounded by single or double quotes
 //or a non-quoted string, that includes non closed quotes
@@ -95,10 +113,13 @@ void	ft_input_parse(t_data *data)
 			ft_quote_node(data, &s, &c, '\'');
 		else if (data->line[c] == '\"')
 			ft_quote_node(data, &s, &c, '\"');
+		else if (ft_strchr("|><", data->line[c]))
+			ft_repi_node(data, &s, &c, data->line[c]);
 		else
 		{
 			while (data->line[c] && data->line[c] != '\''
-				&& data->line[c] != '\"')
+				&& data->line[c] != '\"'
+				&& ft_strchr("|><", data->line[c]) == 0)
 				c++;
 			ft_new_node(data, s, c);
 		}

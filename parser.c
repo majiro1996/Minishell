@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 21:49:25 by manujime         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:33:36 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,16 @@ char	*ft_get_env(char *input, t_data *data)
 	return (NULL);
 }
 
-//removes the character in the delete position of the data->line string
-// void	ft_remove_char(t_data *data, int delete)
-// {
-// 	int		c;
-// 	int		k;
-// 	char	*new;
-
-// 	c = 0;
-// 	k = 0;
-// 	new = malloc(sizeof(char) * ft_strlen(data->list->content));
-// 	if (!new)
-// 		return ;
-// 	while (data->list->content[c])
-// 	{
-// 		if (c != delete)
-// 		{
-// 			new[k] = data->line[c];
-// 			k++;
-// 		}
-// 		c++;
-// 	}
-// 	new[k] = '\0';
-// 	free(data->list->content);
-// 	data->list->content = new;
-// }
+//prints the content of the input linked list
+void	ft_print_input(t_input *list)///////
+{
+	while (list)
+	{
+		printf("content: %s\n", list->content);
+		printf("type: %d\n", list->type);
+		list = list->next;
+	}
+}
 
 //joins all the content strings of the input linked list
 //into a single string and returns it
@@ -88,6 +73,7 @@ void	ft_parse(t_data *data)
 
 	ft_input_parse(data);
 	ft_search_and_replace(data);
+	//ft_print_input(data->list);
 	tmp = ft_full_join(data->list);
 	//printf("new: %s\n", tmp);
 	input = ft_split(tmp, ' ');//
