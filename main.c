@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 23:17:35 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/01 13:52:32 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,26 @@ int	ft_builtins(t_data *data)
 	return (0);
 }
 
+//checks if the first argument exists in the path from the PATH variable
+//and if it does, it replaces the first argument with the full path
+//to the executable
+void	ft_execute_from_path(t_data *data)
+{
+	char	*path;
+	char	*exec;
+
+	path = ft_get_env("PATH", data);
+	exec = ft_strjoin(path, "/");
+	free (path);
+	path = ft_strjoin(exec, data->input[0]);
+	free (exec);
+	if (access(path, F_OK) == 0)
+	{
+		free(data->input[0]);
+		data->input[0] = path;
+	}
+}
+
 //Search and launch the right executable (based on the PATH variable or using a
 //relative or an absolute path)
 void	ft_launch_executable(t_data *data)
@@ -49,6 +69,7 @@ void	ft_launch_executable(t_data *data)
 	int		status;
 	char	*path;
 
+	ft_execute_from_path(data);
 	path = data->input[0];
 	pid = fork();
 	if (pid == 0)
@@ -65,52 +86,6 @@ void	ft_launch_executable(t_data *data)
 	{
 		waitpid(pid, &status, WUNTRACED);
 	}
-}
-
-//updates the SHLVL variable
-void	ft_shlvl(t_data *data)
-{
-	int		c;
-	char	*tmp;
-
-	c = 0;
-	while (data->envp[c])
-	{
-		if (ft_strcmp("SHLVL", ft_get_var(data->envp[c])) == 0)
-		{
-			tmp = ft_strjoin("SHLVL=",
-					ft_itoa(ft_atoi(data->envp[c] + 6) + 1));
-			free(data->envp[c]);
-			data->envp[c] = tmp;
-			break ;
-		}
-		c++;
-	}
-}
-
-//updates the SHELL variable to the path of the executable
-//and calls ft_shlvl to update the SHLVL variable
-void	ft_shell_name(t_data *data)
-{
-	int		c;
-	char	*aux;
-	char	*path;
-
-	c = 0;
-	path = getcwd(NULL, 0);
-	while (data->envp[c])
-	{
-		if (ft_strcmp("SHELL", ft_get_var(data->envp[c])) == 0)
-		{
-			aux = ft_strjoin("SHELL=", path);
-			free(path);
-			free(data->envp[c]);
-			data->envp[c] = aux;
-			break ;
-		}
-		c++;
-	}
-	ft_shlvl(data);
 }
 
 //this is the main function, it displays a prompt and waits for the user to

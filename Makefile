@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/05/29 10:36:27 by manujime         ###   ########.fr        #
+#    Updated: 2023/06/01 13:53:52 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC =   main.c \
 		parser_sign.c \
 		parser_list.c \
 		built_ins_2.c \
+		updates_at_start.c \
 
 OBJ = $(SRC:.c=.o)
 
