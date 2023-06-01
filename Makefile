@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/06/01 13:53:52 by manujime         ###   ########.fr        #
+#    Updated: 2023/06/01 16:33:24 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -L/Users/manujime/.brew/opt/readline/lib -I/Users/manujime/.brew/opt/readline/include -lreadline -lhistory
-	@echo "$(GREEN)$(NAME) compiled"
+	@echo "$(GREEN)$(NAME) compiled$(END)"
 
 $(LIBFT):
 	@make extra -C libft
@@ -53,7 +53,7 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@make fclean -C libft
-	@echo "$(RED)$(NAME) deleted"
+	@echo "$(RED)$(NAME) deleted$(END)"
 
 re: fclean all
 
