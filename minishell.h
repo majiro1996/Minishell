@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/01 13:51:19 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:29:59 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_cd(t_data *data);
 void	ft_pwd(void);
 void	ft_echo(char **input);
 //clean_up.c
+void	ft_clean_paths(char **paths);
 void	ft_clean_input(t_data *data);
 void	ft_leaks(void);
 //init.c

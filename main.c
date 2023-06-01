@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/01 13:52:32 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/01 16:30:28 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,28 @@ void	ft_execute_from_path(t_data *data)
 {
 	char	*path;
 	char	*exec;
+	char	**paths;
+	int		c;
 
 	path = ft_get_env("PATH", data);
-	exec = ft_strjoin(path, "/");
-	free (path);
-	path = ft_strjoin(exec, data->input[0]);
-	free (exec);
-	if (access(path, F_OK) == 0)
+	paths = ft_split(path, ':');
+	c = 0;
+	while (paths[c])
 	{
-		free(data->input[0]);
-		data->input[0] = path;
+		exec = ft_strjoin(paths[c], "/");
+		free (paths[c]);
+		paths[c] = ft_strjoin(exec, data->input[c]);
+		free (exec);
+		if (access(*paths, F_OK) == 0)
+		{
+			free(data->input[0]);
+			data->input[0] = ft_strdup(paths[c]);
+			break ;
+		}
+		paths++;
 	}
+	free (path);
+	ft_clean_paths(paths);
 }
 
 //Search and launch the right executable (based on the PATH variable or using a
