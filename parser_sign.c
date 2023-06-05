@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:43:08 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/31 00:40:35 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/05 21:14:55 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	ft_replace_var(t_input *input, t_data *data)
 		val = ft_get_env(var, data);
 		if (val)
 			ft_rep_lace(input, s - 1, s + ft_strlen(var), val);
+		else
+			ft_rep_lace(input, s - 1, s + ft_strlen(var), "");
 		free(var);
 		free(val);
 	}
