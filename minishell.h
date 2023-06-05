@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/01 16:29:59 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:08:43 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,16 @@ typedef struct s_data
 	char	*line;
 	char	**input;
 	t_input	*list;
+	t_input	*current;
+	int		pipecount;
 	char	**envp;
 	char	**argv;
 	int		argc;
 }	t_data;
 
+//main.c
+int		ft_builtins(t_data *data);
+void	ft_launch_executable(t_data *data);
 //builtins.c
 void	ft_cd(t_data *data);
 void	ft_pwd(void);
@@ -69,6 +74,7 @@ int		ft_update_env(t_data *data);
 //parser.c
 char	*ft_get_env(char *line, t_data *data);
 void	ft_parse(t_data *data);
+char	*ft_full_join(t_input *list);
 //parser_sign.c
 void	ft_search_and_replace(t_data *data);
 //parser_list.c
@@ -78,4 +84,7 @@ void	ft_unset(t_data *data);
 //updates_at_start.c
 void	ft_shlvl(t_data *data);
 void	ft_shell_name(t_data *data);
+//pipes.c
+int		ft_count_pipes(t_input *list);
+void	ft_multiple_commands(t_data *data, int *builtins);
 #endif

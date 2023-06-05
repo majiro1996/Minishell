@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/31 21:23:27 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:52:04 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,16 @@ void	ft_print_input(t_input *list)///////
 	}
 }
 
-//joins all the content strings of the input linked list
-//into a single string and returns it
+//joins all the content of the input linked list between pipes
+//creating a new string for each command
+//
 char	*ft_full_join(t_input *list)
 {
 	char	*new;
 	char	*tmp;
 
 	new = ft_strdup("");
-	while (list)
+	while (list && list->type != 7)
 	{
 		tmp = ft_strjoin(new, list->content);
 		free(new);
@@ -68,20 +69,21 @@ char	*ft_full_join(t_input *list)
 //if 
 void	ft_parse(t_data *data)
 {
-	char	**input;
-	char	*tmp;
+	//char	**input;
+	//char	*tmp;
 
 	ft_input_parse(data);
 	//ft_print_input(data->list);//
 	ft_search_and_replace(data);
 	//ft_print_input(data->list);//
-	tmp = ft_full_join(data->list);
+	data->pipecount = ft_count_pipes(data->list);
+	//tmp = ft_full_join(data->list);
 	//printf("new: %s\n", tmp);
-	input = ft_split(tmp, ' ');//
+	//input = ft_split(tmp, ' ');//
 	//printf("tmp: %s\n", tmp);
 	//ft_print_char_matrix(input);
-	if (!input)
-		return ;
-	data->input = input;
-	free(tmp);
+	// if (!input)
+	// 	return ;
+	// data->input = input;
+	// free(tmp);
 }

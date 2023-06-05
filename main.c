@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/01 16:30:28 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/05 13:05:37 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		add_history(data.line);
 		ft_parse(&data);
-		builtins = ft_builtins(&data);
-		if (!builtins && data.input[0])
-			ft_launch_executable(&data);
+		ft_multiple_commands(&data, &builtins);
 		ft_clean_input(&data);
 	}
 	//rl_clear_history(); //fix these leaks
