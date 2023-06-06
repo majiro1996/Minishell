@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/06 18:51:17 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:05:10 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,13 @@ void	ft_execute_from_path(t_data *data)
 
 void	ft_launch_executable(t_data *data, int infd, int outfd)
 {
-	pid_t	pid;
 	int		status;
 	char	*path;
 
 	ft_execute_from_path(data);
 	path = data->input[0];
-	pid = fork();
-	if (pid == 0)
+	data->child = fork();
+	if (data->child == 0)
 	{
 		ft_redirect_in_out(infd, outfd);
 		if (execve(path, data->input, data->envp) == -1)
