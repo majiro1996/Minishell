@@ -40,4 +40,5 @@ void	ft_init_data(t_data *data, int argc, char **argv, char **envp)
 	data->argc = argc;
 	data->argv = argv;
 	ft_copy_envp(data, envp);
+	signal_setter();
 }

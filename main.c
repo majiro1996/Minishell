@@ -76,6 +76,7 @@ void	ft_execute_from_path(t_data *data)
 void	ft_launch_executable(t_data *data, int infd, int outfd)
 {
 	pid_t	pid;
+	pid_t	son;
 	int		status;
 	char	*path;
 

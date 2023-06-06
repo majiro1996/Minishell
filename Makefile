@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
+#    By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
 #    Updated: 2023/06/05 12:42:50 by manujime         ###   ########.fr        #
@@ -28,7 +28,8 @@ SRC =   main.c \
 		parser_list.c \
 		built_ins_2.c \
 		updates_at_start.c \
-		pipes.c
+		pipes.c \
+		signals.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -37,8 +38,8 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -L/Users/manujime/.brew/opt/readline/lib -I/Users/manujime/.brew/opt/readline/include -lreadline -lhistory
-	@echo "$(GREEN)$(NAME) compiled$(END)"
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -l readline
+	@echo "$(GREEN)$(NAME) compiled"
 
 $(LIBFT):
 	@make extra -C libft

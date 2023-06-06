@@ -57,6 +57,7 @@ char	*ft_full_join(t_input *list)
 	new = ft_strdup("");
 	while (list && list->type != 7)
 	{
+
 		tmp = ft_strjoin(new, list->content);
 		free(new);
 		new = tmp;
@@ -66,7 +67,6 @@ char	*ft_full_join(t_input *list)
 }
 
 //parses the line string of the data struct
-//if 
 void	ft_parse(t_data *data)
 {
 	//char	**input;
