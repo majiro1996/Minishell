@@ -57,7 +57,6 @@ char	*ft_full_join(t_input *list)
 	new = ft_strdup("");
 	while (list && list->type != 7)
 	{
-
 		tmp = ft_strjoin(new, list->content);
 		free(new);
 		new = tmp;

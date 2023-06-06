@@ -51,6 +51,7 @@ typedef struct s_data
 	char	**argv;
 	int		argc;
 	int		actual_status;
+	pid_t	child;
 }	t_data;
 
 //main.c
@@ -95,5 +96,6 @@ void	ft_redirect_in_out(int inputfd, int outputfd);
 void	ft_pipeline(t_data *data, int pipecount);
 //signals.c
 void	signal_setter(void);
+void	signal_handler(int signal);
 
 #endif

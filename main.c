@@ -74,6 +74,7 @@ void	ft_execute_from_path(t_data *data)
 
 //Search and launch the right executable (based on the PATH variable or using a
 //relative or an absolute path)
+
 void	ft_launch_executable(t_data *data, int infd, int outfd)
 {
 	pid_t	pid;
@@ -90,10 +91,17 @@ void	ft_launch_executable(t_data *data, int infd, int outfd)
 			perror(path);
 		exit(EXIT_FAILURE);
 	}
-	else if (pid < 0)
+	else if (data->child < 0)
 		perror(path);
 	else
-		waitpid(pid, &status, WUNTRACED);
+	{
+		waitpid(data->child, &status, WUNTRACED);
+		if (data->child > 0)
+		{
+			if (WIFEXITED(status))
+				data->actual_status = WEXITSTATUS(status);
+		}
+	}
 }
 
 //checks if the first argument is a builtin command and if it isn't, it checks
@@ -112,6 +120,7 @@ void	ft_command(t_data *data, int inputfd, int outputfd)
 //this is the main function, it displays a prompt and waits for the user to
 //enter a command. It then reads the command and executes it. It loops until
 //the user presses ctrl-D or types exit.
+// atexit(ft_leaks);
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
@@ -133,6 +142,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_pipeline(&data, ft_count_pipes(data.list));
 		ft_clean_input(&data);
 	}
-	//rl_clear_history(); //fix these leaks
+	rl_clear_history();
 	return (0);
 }
