@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/30 17:51:47 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:52:04 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//returns the variable value from an environment variable
 char	*ft_get_env(char *input, t_data *data)
 {
 	int		c;
@@ -34,25 +35,54 @@ char	*ft_get_env(char *input, t_data *data)
 	return (NULL);
 }
 
-char	**ft_parse(t_data *data)
+//prints the content of the input linked list
+void	ft_print_input(t_input *list)///////
 {
-	char	**input;
-	int		c;
-
-	c = 0;
-	input = ft_split(data->line, ' ');
-	while (input[c])
+	while (list)
 	{
-		if (input[c][0] == '$')
-		{
-			if (input[c][1] == '?')
-			{
-				input[c] = ft_itoa(data->actual_status);
-			}
-			else
-				input[c] = ft_get_env(input[c] + 1, data);
-		}
-		c++;
+		printf("content: %s\n", list->content);
+		printf("type: %d\n", list->type);
+		list = list->next;
 	}
-	return (input);
+}
+
+//joins all the content of the input linked list between pipes
+//creating a new string for each command
+//
+char	*ft_full_join(t_input *list)
+{
+	char	*new;
+	char	*tmp;
+
+	new = ft_strdup("");
+	while (list && list->type != 7)
+	{
+		tmp = ft_strjoin(new, list->content);
+		free(new);
+		new = tmp;
+		list = list->next;
+	}
+	return (new);
+}
+
+//parses the line string of the data struct
+void	ft_parse(t_data *data)
+{
+	//char	**input;
+	//char	*tmp;
+
+	ft_input_parse(data);
+	//ft_print_input(data->list);//
+	ft_search_and_replace(data);
+	//ft_print_input(data->list);//
+	data->pipecount = ft_count_pipes(data->list);
+	//tmp = ft_full_join(data->list);
+	//printf("new: %s\n", tmp);
+	//input = ft_split(tmp, ' ');//
+	//printf("tmp: %s\n", tmp);
+	//ft_print_char_matrix(input);
+	// if (!input)
+	// 	return ;
+	// data->input = input;
+	// free(tmp);
 }
