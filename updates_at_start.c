@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_path.c                                     :+:      :+:    :+:   */
+/*   updates_at_start.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 11:41:23 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/01 13:50:15 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:35:10 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ void	ft_shell_name(t_data *data)
 		{
 			aux = ft_strjoin("SHELL=", path);
 			free(path);
+			path = ft_strjoin(aux, "/minishell");
+			free (aux);
 			free(data->envp[c]);
-			data->envp[c] = aux;
+			data->envp[c] = path;
 			break ;
 		}
 		c++;

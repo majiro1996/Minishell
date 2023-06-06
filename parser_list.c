@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:14:27 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/31 20:50:22 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:41:56 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 //3 = << here document
 //4 = <  input redirect
 //5 = >> output redirect append
-//6 = >  output redirect overwrite
+//6 = >  output redirect
 //7 = | pipe
 void	ft_set_input_type(t_data *data)
 {
