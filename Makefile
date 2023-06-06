@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+         #
+#    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/06/05 12:42:50 by manujime         ###   ########.fr        #
+#    Updated: 2023/06/06 20:39:09 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ $(LIBFT):
 	
 $(NAME): $(LIBFT) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(LFLAGS) $(INC) -o $(NAME)
-	@echo "$(GREEN)$(NAME) compiled"
+	@echo "$(GREEN)$(NAME) compiled$(END)"
 
 
 %.o: %.c

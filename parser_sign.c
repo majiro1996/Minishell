@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:43:08 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/06 18:43:52 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/06 20:34:53 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ void	ft_replace_var(t_input *input, t_data *data)
 			&& ft_strchr("'\"><| $", input->content[e]) == NULL)
 				e++;
 		var = ft_substr(input->content, s, e - s);
-		val = ft_get_env(var, data);
+		if (ft_strcmp(var, "?") == 0)//fix norminette
+			val = ft_itoa(data->actual_status);
+		else
+			val = ft_get_env(var, data);
 		if (val)
 			ft_rep_lace(input, s - 1, s + ft_strlen(var), val);
 		else
