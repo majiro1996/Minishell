@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/05 12:52:04 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:28:53 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,7 @@ char	*ft_full_join(t_input *list)
 //parses the line string of the data struct
 void	ft_parse(t_data *data)
 {
-	//char	**input;
-	//char	*tmp;
-
 	ft_input_parse(data);
-	//ft_print_input(data->list);//
 	ft_search_and_replace(data);
-	//ft_print_input(data->list);//
 	data->pipecount = ft_count_pipes(data->list);
-	//tmp = ft_full_join(data->list);
-	//printf("new: %s\n", tmp);
-	//input = ft_split(tmp, ' ');//
-	//printf("tmp: %s\n", tmp);
-	//ft_print_char_matrix(input);
-	// if (!input)
-	// 	return ;
-	// data->input = input;
-	// free(tmp);
 }
