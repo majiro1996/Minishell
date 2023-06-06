@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/05 23:47:35 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:16:50 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	ft_builtins(t_data *data, int inputfd, int outputfd)
 	if (ft_strnstr("cd pwd echo exit export unset env",
 			data->input[0], 33) != 0)
 		is_builtin = 1;
-	if (is_builtin == 1)
+	if (is_builtin == 1 && ft_strnstr("pwd echo env",
+			data->input[0], 33) != 0)
 	{
 		pid = fork();
 		if (pid == 0)
@@ -76,7 +77,6 @@ void	ft_execute_from_path(t_data *data)
 void	ft_launch_executable(t_data *data, int infd, int outfd)
 {
 	pid_t	pid;
-	pid_t	son;
 	int		status;
 	char	*path;
 
@@ -103,8 +103,7 @@ void	ft_command(t_data *data, int inputfd, int outputfd)
 {
 	int	builtin;
 
-	if (ft_strcmp(data->input[0], "exit") == 0)
-		ft_exit(data->input, data);
+	ft_parent_command(data);
 	builtin = ft_builtins(data, inputfd, outputfd);
 	if (!builtin && data->input[0])
 		ft_launch_executable(data, inputfd, outputfd);

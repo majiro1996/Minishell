@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 12:31:59 by manujime          #+#    #+#             */
-/*   Updated: 2023/04/10 20:58:47 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:43:04 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,6 @@ void				ft_swap(int *a, int *b);
 void				ft_free_char_matrix(char **arr);
 //so_long
 void				ft_print_char_matrix(char **matrix);
+//minishell
+int					ft_char_matrix_len(char **matrix);
 #endif

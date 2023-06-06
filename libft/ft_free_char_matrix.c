@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 14:49:23 by manujime          #+#    #+#             */
-/*   Updated: 2023/04/10 20:58:01 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:42:30 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,15 @@ void	ft_print_char_matrix(char **matrix)
 		ft_printf("%s\n", matrix[c]);
 		c++;
 	}
+}
+
+//returns the length of a char**
+int	ft_char_matrix_len(char **matrix)
+{
+	int	c;
+
+	c = 0;
+	while (matrix[c])
+		c++;
+	return (c);
 }
