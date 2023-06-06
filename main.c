@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/23 20:35:44 by albgonza         ###   ########.fr       */
+/*   Updated: 2023/06/05 23:47:35 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,59 +14,100 @@
 
 //checks if the first argument is a builtin command and if it is, executes it
 //and returns 1, if it isn't, returns 0
-int	ft_builtins(t_data *data)
-{
-	char	**input;
+int	ft_builtins(t_data *data, int inputfd, int outputfd)
+{	
+	pid_t	pid;
+	int		status;
+	int		is_builtin;
 
-	input = data->input;
-	if (ft_strcmp(data->input[0], "cd") == 0)
-		ft_cd(data);
-	else if (ft_strcmp(data->input[0], "pwd") == 0)
-		ft_pwd();
-	else if (ft_strcmp(data->input[0], "echo") == 0)
-		ft_echo(data->input);
-	else if (ft_strcmp(data->input[0], "export") == 0)
-		ft_export(data);
-	else if (ft_strcmp(input[0], "unset") == 0)
-		ft_unset(data);
-	else if (ft_strcmp(input[0], "env") == 0)
-		ft_print_env(data->envp);
-	else if (ft_strcmp(data->input[0], "exit") == 0)
-		ft_exit(data->input);
-	if (!ft_strcmp(input[0], "cd") || !ft_strcmp(input[0], "pwd")
-		|| !ft_strcmp(input[0], "echo") || !ft_strcmp(input[0], "exit")
-		|| !ft_strcmp(input[0], "export") || !ft_strcmp(input[0], "unset"))
-		return (1);
-	return (0);
+	is_builtin = 0;
+	if (ft_strnstr("cd pwd echo exit export unset env",
+			data->input[0], 33) != 0)
+		is_builtin = 1;
+	if (is_builtin == 1)
+	{
+		pid = fork();
+		if (pid == 0)
+			ft_execute_builtin(data, inputfd, outputfd);
+		else if (pid < 0)
+		{
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+		else
+			waitpid(pid, &status, WUNTRACED);
+	}
+	return (is_builtin);
+}
+
+//checks if the first argument exists in the path from the PATH variable
+//and if it does, it replaces the first argument with the full path
+//to the executable
+void	ft_execute_from_path(t_data *data)
+{
+	char	*path;
+	char	*exec;
+	char	**paths;
+	int		c;
+
+	path = ft_get_env("PATH", data);
+	paths = ft_split(path, ':');
+	c = 0;
+	while (paths[c])
+	{
+		exec = ft_strjoin(paths[c], "/");
+		free (paths[c]);
+		paths[c] = ft_strjoin(exec, data->input[c]);
+		free (exec);
+		if (access(*paths, F_OK) == 0)
+		{
+			free(data->input[0]);
+			data->input[0] = ft_strdup(paths[c]);
+			break ;
+		}
+		paths++;
+	}
+	free (path);
+	ft_clean_paths(paths);
 }
 
 //Search and launch the right executable (based on the PATH variable or using a
 //relative or an absolute path)
-void	ft_launch_executable(t_data data)
+void	ft_launch_executable(t_data *data, int infd, int outfd)
 {
 	pid_t	pid;
 	pid_t	son;
 	int		status;
 	char	*path;
 
-	path = data.input[0];
+	ft_execute_from_path(data);
+	path = data->input[0];
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(STDOUT_FILENO, STDOUT_FILENO);
-		dup2(STDERR_FILENO, STDERR_FILENO);
-		if (execve(path, data.input, data.envp) == -1)
+		ft_redirect_in_out(infd, outfd);
+		if (execve(path, data->input, data->envp) == -1)
 			perror(path);
 		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
 		perror(path);
 	else
-	{
-		son = waitpid(pid, &status, WUNTRACED);
-		if (WIFEXITED(son))
-			data.actual_status = WEXITSTATUS(son);
-	}
+		waitpid(pid, &status, WUNTRACED);
+}
+
+//checks if the first argument is a builtin command and if it isn't, it checks
+//if it is an executable and if it is, it executes it
+//checks for the exit command and exits the shell if it is
+void	ft_command(t_data *data, int inputfd, int outputfd)
+{
+	int	builtin;
+
+	if (ft_strcmp(data->input[0], "exit") == 0)
+		ft_exit(data->input, data);
+	builtin = ft_builtins(data, inputfd, outputfd);
+	if (!builtin && data->input[0])
+		ft_launch_executable(data, inputfd, outputfd);
 }
 
 //this is the main function, it displays a prompt and waits for the user to
@@ -74,14 +115,12 @@ void	ft_launch_executable(t_data data)
 //the user presses ctrl-D or types exit.
 int	main(int argc, char **argv, char **envp)
 {
-	//atexit(ft_leaks);
-	int		builtins;
 	t_data	data;
 
 	ft_init_data(&data, argc, argv, envp);
+	ft_shell_name(&data);
 	while (1)
 	{
-		builtins = 0;
 		data.line = readline("minishell> ");
 		if (data.line == NULL)
 		{
@@ -91,10 +130,8 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strcmp(data.line, "") == 0)
 			continue ;
 		add_history(data.line);
-		data.input = ft_parse(&data);
-		builtins = ft_builtins(&data);
-		if (!builtins && data.input[0])
-			ft_launch_executable(data);
+		ft_parse(&data);
+		ft_pipeline(&data, ft_count_pipes(data.list));
 		ft_clean_input(&data);
 	}
 	//rl_clear_history(); //fix these leaks

@@ -6,7 +6,7 @@
 #    By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/05/23 19:47:25 by albgonza         ###   ########.fr        #
+#    Updated: 2023/06/05 12:42:50 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,11 @@ SRC =   main.c \
 		clean_up.c \
 		export_utils.c \
 		parser.c \
+		parser_sign.c \
+		parser_list.c \
 		built_ins_2.c \
+		updates_at_start.c \
+		pipes.c \
 		signals.c \
 
 OBJ = $(SRC:.c=.o)
@@ -51,7 +55,7 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@make fclean -C libft
-	@echo "$(RED)$(NAME) deleted"
+	@echo "$(RED)$(NAME) deleted$(END)"
 
 re: fclean all
 
