@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
 /*   Updated: 2023/06/06 16:05:35 by manujime         ###   ########.fr       */
@@ -22,11 +22,13 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <fcntl.h>
 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define BLUE "\033[0;36m"
 # define END "\033[0m"
+# define PROMPT "minishell>"
 
 # define N0_QUOTE 0
 # define SI_QUOTE 1
@@ -97,5 +99,6 @@ void	ft_pipeline(t_data *data, int pipecount);
 //signals.c
 void	signal_setter(void);
 void	signal_handler(int signal);
-
+//redirections.c
+void	redirect_output(int append_flag, char **input);
 #endif

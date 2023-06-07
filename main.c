@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: albgonza <albgonza@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
 /*   Updated: 2023/06/06 20:05:10 by manujime         ###   ########.fr       */
@@ -123,6 +123,7 @@ void	ft_command(t_data *data, int inputfd, int outputfd)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
+	char	*prompt;
 
 	ft_init_data(&data, argc, argv, envp);
 	ft_shell_name(&data);

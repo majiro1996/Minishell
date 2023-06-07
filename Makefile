@@ -20,6 +20,7 @@ END			=		\033[0m
 
 SRC =   main.c \
 		builtins.c \
+		redirections.c \
 		init.c \
 		clean_up.c \
 		export_utils.c \

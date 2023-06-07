@@ -44,11 +44,11 @@ void	ft_pwd(void)
 
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
-		perror("pwd");
+		printf("pwd: %s\n", strerror(2));
 	else
 	{
-		ft_putstr_fd(cwd, STDOUT_FILENO);
-		ft_putstr_fd("\n", STDOUT_FILENO);
+		ft_putstr_fd(cwd, 1);
+		ft_putstr_fd("\n", 1);
 		free(cwd);
 	}
 }
