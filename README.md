@@ -1,6 +1,6 @@
 # Minishell
 
-Minishell is a shell implementation project developed as part of the curriculum at the 42 programming school. It aims to create a simple yet functional shell with various features and built-in commands.
+Minishell is a shell implementation project developed as part of the curriculum at the **42** programming school. It aims to create a simple yet functional shell with various features and built-in commands.
 
 ## Features
 
