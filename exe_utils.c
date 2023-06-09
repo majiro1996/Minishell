@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:39:51 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 15:10:50 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/09 16:49:50 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,21 @@ int	ft_is_all_space(char *input)
 	if (input[c] == '\0')
 		return (1);
 	return (0);
+}
+
+//checks if the file exists in the current folder, if it does but it's not
+//preceded by "./" it prints command not found, if it doesn't it prints
+//perror(path)
+void	ft_check_file(char *path, t_data *data)
+{
+	if (access(path, F_OK) == 0)
+	{
+		if (ft_strnstr(path, "./", 3) == 0)
+		{
+			ft_putstr_fd(path, STDERR_FILENO);
+			ft_putstr_fd(": ", STDERR_FILENO);
+			ft_putstr_fd("command not found \n", STDERR_FILENO);
+			ft_clean_exit(127, data);
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 15:13:06 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/09 16:45:46 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	ft_execute_from_path(t_data *data)
 		free (paths[c]);
 		paths[c] = ft_strjoin(exec, data->input[c]);
 		free (exec);
-		if (access(*paths, F_OK) == 0)
+		if (access(*paths, F_OK) == 0
+			&& ft_strnstr(data->input[0], "./", 3) == 0)// "./" management here
 		{
 			free(data->input[0]);
 			data->input[0] = ft_strdup(paths[c]);
@@ -74,17 +75,17 @@ void	ft_execute_from_path(t_data *data)
 
 //Search and launch the right executable (based on the PATH variable or using a
 //relative or an absolute path)
-
 void	ft_launch_executable(t_data *data, int infd, int outfd)
 {
 	int		status;
 	char	*path;
 
-	ft_execute_from_path(data);
 	path = data->input[0];
 	data->child = fork();
 	if (data->child == 0)
 	{
+		ft_check_file(path, data);// "./" management here
+		ft_execute_from_path(data);
 		ft_redirect_in_out(infd, outfd);
 		if (execve(path, data->input, data->envp) == -1)
 			ft_print_error(path, outfd);
