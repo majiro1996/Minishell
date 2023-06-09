@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 12:12:41 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/09 13:43:22 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_data
 int		ft_builtins(t_data *data, int infd, int outfd);
 void	ft_launch_executable(t_data *data, int infd, int outfd);
 void	ft_command(t_data *data, int infd, int outfd);
+//exe_utils.c
+void	ft_print_error(char *path);
 //builtins.c
 void	ft_cd(t_data *data);
 void	ft_pwd(void);

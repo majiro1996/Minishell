@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/06/06 20:39:09 by manujime         ###   ########.fr        #
+#    Updated: 2023/06/09 13:43:42 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ RED			=		\033[0;31m
 END			=		\033[0m
 
 SRC =   main.c \
+		exe_utils.c \
 		builtins.c \
 		init.c \
 		clean_up.c \
