@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 12:54:07 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:02:52 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,9 @@ void	ft_exit(char **input, t_data *data)
 		c++;
 	if (c == 1)
 		ft_clean_exit(EXIT_SUCCESS, data);
-	else if (c == 2)
+	else if (c == 2 && ft_isdigit(input[1][0]) == 1)
 	{
-		if (ft_isdigit(input[1][0]) == 1)
-			ft_clean_exit(ft_atoi(input[1]), data);
+		ft_clean_exit(ft_atoi(input[1]), data);
 	}
 	else if (!ft_isdigit(input[1][0]))
 	{
