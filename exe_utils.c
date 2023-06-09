@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:39:51 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 16:49:50 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:06:48 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //checks if the input[0] has "./" before the executable name
 //if it does it prints perror(path), if it doesn't it prints
 //ft_putstr_fd("command not found", 2)
-void	ft_print_error(char *path, int outfd)
+void	ft_print_error(char *path, int outfd, t_data *data)
 {
 	dup2(STDOUT_FILENO, outfd);
 	if (ft_strnstr(path, "./", 3) != 0 || ft_strnstr(path, "/", 2) != 0)
@@ -26,6 +26,7 @@ void	ft_print_error(char *path, int outfd)
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putstr_fd("command not found \n", STDERR_FILENO);
 	}
+	ft_clean_exit(127, data);
 }
 
 //checks if the input is comprised of only spaces or tabs

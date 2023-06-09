@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 16:45:46 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:04:26 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	ft_launch_executable(t_data *data, int infd, int outfd)
 		ft_execute_from_path(data);
 		ft_redirect_in_out(infd, outfd);
 		if (execve(path, data->input, data->envp) == -1)
-			ft_print_error(path, outfd);
+			ft_print_error(path, outfd, data);
 		ft_clean_exit(EXIT_FAILURE, data);
 	}
 	else if (data->child < 0)

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 16:43:20 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:04:35 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		ft_builtins(t_data *data, int infd, int outfd);
 void	ft_launch_executable(t_data *data, int infd, int outfd);
 void	ft_command(t_data *data, int infd, int outfd);
 //exe_utils.c
-void	ft_print_error(char *path, int outfd);
+void	ft_print_error(char *path, int outfd, t_data *data);
 int		ft_is_all_space(char *input);
 void	ft_check_file(char *path, t_data *data);
 //builtins.c
