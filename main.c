@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 14:10:04 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:13:06 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int	main(int argc, char **argv, char **envp)
 			printf("\n");
 			break ;
 		}
-		if (ft_strcmp(data.line, "") == 0)
+		if (ft_strcmp(data.line, "") == 0 || ft_is_all_space(data.line))
 			continue ;
 		add_history(data.line);
 		ft_parse(&data);

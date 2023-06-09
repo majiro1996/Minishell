@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:39:51 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 14:10:56 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/09 15:10:50 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,18 @@ void	ft_print_error(char *path, int outfd)
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putstr_fd("command not found \n", STDERR_FILENO);
 	}
+}
+
+//checks if the input is comprised of only spaces or tabs
+//if it is it returns 1, if it isn't it returns 0
+int	ft_is_all_space(char *input)
+{
+	int	c;
+
+	c = 0;
+	while (input[c] && (input[c] == ' ' || input[c] == '\t'))
+		c++;
+	if (input[c] == '\0')
+		return (1);
+	return (0);
 }
