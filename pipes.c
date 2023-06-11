@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:04:55 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/05 22:59:12 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/11 22:59:16 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,3 @@ void	ft_redirect_in_out(int inputfd, int outputfd)
 		close(outputfd);
 	}
 }
-
-// void	ft_multiple_commands(t_data *data, int *builtins)
-// {
-// 	data->current = data->list;
-// 	while (data->current)
-// 	{
-// 		data->input = ft_split(ft_full_join(data->current), ' ');
-// 		ft_free_char_matrix(data->input);
-// 		while (data->current && data->current->type != 7)
-// 			data->current = data->current->next;
-// 		if (data->current && data->current->type == 7)
-// 			data->current = data->current->next;
-// 	}
-// }

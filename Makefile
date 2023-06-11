@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/06/09 13:43:42 by manujime         ###   ########.fr        #
+#    Updated: 2023/06/12 00:02:12 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC =   main.c \
 		built_ins_2.c \
 		updates_at_start.c \
 		pipes.c \
+		redirects.c \
 		signals.c \
 
 OBJ = $(SRC:.c=.o)

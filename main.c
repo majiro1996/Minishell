@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 17:04:26 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 00:52:36 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	ft_command(t_data *data, int inputfd, int outputfd)
 {
 	int	builtin;
 
+	ft_redirect_fd(data, &inputfd, &outputfd);
 	ft_parent_command(data);
 	builtin = ft_builtins(data, inputfd, outputfd);
 	if (!builtin && data->input[0])

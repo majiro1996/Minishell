@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 17:04:35 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 00:52:17 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	ft_shell_name(t_data *data);
 int		ft_count_pipes(t_input *list);
 void	ft_redirect_in_out(int inputfd, int outputfd);
 void	ft_pipeline(t_data *data, int pipecount);
+//redirects.c
+void	ft_redirect_fd(t_data *data, int *inputfd, int *outputfd);
 //signals.c
 void	signal_setter(void);
 void	signal_handler(int signal);
