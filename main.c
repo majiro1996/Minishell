@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 17:39:05 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:15:53 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_builtins(t_data *data, int inputfd, int outputfd)
 		else if (pid < 0)
 		{
 			perror("fork");
-			exit(EXIT_FAILURE);
+			ft_clean_exit(EXIT_FAILURE, data);
 		}
 		else
 			waitpid(pid, &status, WUNTRACED);
@@ -58,16 +58,16 @@ void	ft_execute_from_path(t_data *data)
 	{
 		exec = ft_strjoin(paths[c], "/");
 		free (paths[c]);
-		paths[c] = ft_strjoin(exec, data->input[c]);
+		paths[c] = ft_strjoin(exec, data->input[0]);
 		free (exec);
-		if (access(*paths, F_OK) == 0
+		if (access(paths[c], F_OK) == 0
 			&& ft_strnstr(data->input[0], "./", 3) == 0)
 		{
 			free(data->input[0]);
 			data->input[0] = ft_strdup(paths[c]);
 			break ;
 		}
-		paths++;
+		c++;
 	}
 	free (path);
 	ft_clean_paths(paths);
@@ -80,12 +80,12 @@ void	ft_launch_executable(t_data *data, int infd, int outfd)
 	int		status;
 	char	*path;
 
-	path = data->input[0];
 	data->child = fork();
 	if (data->child == 0)
 	{
-		ft_check_file(path, data);
+		ft_check_file(data, data->input[0]);
 		ft_execute_from_path(data);
+		path = data->input[0];
 		ft_redirect_in_out(infd, outfd, data);
 		if (execve(path, data->input, data->envp) == -1)
 			ft_print_error(path, outfd, data);
