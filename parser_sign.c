@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:43:08 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/06 20:34:53 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:48:36 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	ft_rep_lace(t_input *input, int s, int e, char *val)
 
 	c = 0;
 	k = 0;
+	if (val == NULL)
+		val = "";
 	new = malloc(sizeof(char) * (ft_strlen(input->content)
 				- (e - s) + ft_strlen(val) + 1));
 	if (!new)
@@ -83,14 +85,11 @@ void	ft_replace_var(t_input *input, t_data *data)
 			&& ft_strchr("'\"><| $", input->content[e]) == NULL)
 				e++;
 		var = ft_substr(input->content, s, e - s);
-		if (ft_strcmp(var, "?") == 0)//fix norminette
+		if (ft_strcmp(var, "?") == 0)
 			val = ft_itoa(data->actual_status);
 		else
 			val = ft_get_env(var, data);
-		if (val)
-			ft_rep_lace(input, s - 1, s + ft_strlen(var), val);
-		else
-			ft_rep_lace(input, s - 1, s + ft_strlen(var), "");
+		ft_rep_lace(input, s - 1, s + ft_strlen(var), val);
 		free(var);
 		free(val);
 	}

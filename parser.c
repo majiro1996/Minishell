@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 00:42:10 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:53:20 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ char	*ft_get_env(char *input, t_data *data)
 }
 
 //prints the content of the input linked list
-void	ft_print_input(t_input *list)///////
+//used for debugging only
+void	ft_print_input(t_input *list)
 {
 	while (list)
 	{
