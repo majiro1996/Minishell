@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/06 18:28:53 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 00:42:10 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_print_input(t_input *list)///////
 
 //joins all the content of the input linked list between pipes
 //creating a new string for each command
-//
+//pipes and redirections are not included in the new string
 char	*ft_full_join(t_input *list)
 {
 	char	*new;
@@ -57,6 +57,12 @@ char	*ft_full_join(t_input *list)
 	new = ft_strdup("");
 	while (list && list->type != 7)
 	{
+		if (list->type == 3 || list->type == 4
+			|| list->type == 5 || list->type == 6)
+		{
+				list = list->next;
+			continue ;
+		}
 		tmp = ft_strjoin(new, list->content);
 		free(new);
 		new = tmp;

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/05 23:46:44 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:02:52 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,23 +89,21 @@ void	ft_exit(char **input, t_data *data)
 	while (input[c])
 		c++;
 	if (c == 1)
-		exit(EXIT_SUCCESS);
-	else if (c == 2)
+		ft_clean_exit(EXIT_SUCCESS, data);
+	else if (c == 2 && ft_isdigit(input[1][0]) == 1)
 	{
-		if (ft_isdigit(input[1][0]) == 1)
-			exit(ft_atoi(input[1]));
-		else
-		{
-			printf("exit: %s", strerror(2));
-			printf(": %s\n", input[1]);
-			ft_clean_input(data);
-			exit(2);
-		}
+		ft_clean_exit(ft_atoi(input[1]), data);
+	}
+	else if (!ft_isdigit(input[1][0]))
+	{
+		ft_putstr_fd("exit: numeric argument required : ", STDERR_FILENO);
+		ft_putstr_fd(input[1], STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
+		ft_clean_exit(EXIT_SUCCESS, data);
 	}
 	else
 	{
-		printf("exit: too many arguments\n");
-		exit(1);
+		ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
 	}
 }
 

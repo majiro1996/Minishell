@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/06 16:05:35 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 00:52:17 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ typedef struct s_data
 int		ft_builtins(t_data *data, int infd, int outfd);
 void	ft_launch_executable(t_data *data, int infd, int outfd);
 void	ft_command(t_data *data, int infd, int outfd);
+//exe_utils.c
+void	ft_print_error(char *path, int outfd, t_data *data);
+int		ft_is_all_space(char *input);
+void	ft_check_file(char *path, t_data *data);
 //builtins.c
 void	ft_cd(t_data *data);
 void	ft_pwd(void);
@@ -66,6 +70,7 @@ void	ft_echo(char **input);
 void	ft_clean_paths(char **paths);
 void	ft_clean_input(t_data *data);
 void	ft_leaks(void);
+void	ft_clean_exit(int exit_code, t_data *data);
 //init.c
 void	ft_init_data(t_data *data, int argc, char **argv, char **envp);
 void	ft_exit(char **input, t_data *data);
@@ -94,6 +99,8 @@ void	ft_shell_name(t_data *data);
 int		ft_count_pipes(t_input *list);
 void	ft_redirect_in_out(int inputfd, int outputfd);
 void	ft_pipeline(t_data *data, int pipecount);
+//redirects.c
+void	ft_redirect_fd(t_data *data, int *inputfd, int *outputfd);
 //signals.c
 void	signal_setter(void);
 void	signal_handler(int signal);

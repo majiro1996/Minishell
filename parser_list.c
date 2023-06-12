@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:14:27 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/06 18:41:56 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 00:40:39 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	ft_set_input_type(t_data *data)
 		else if (tmp->content[0] == '\"' && ft_strlen(tmp->content) > 1
 			&& tmp->content[ft_strlen(tmp->content) - 1] == '\"')
 			tmp->type = 2;
-		else if (tmp->content[0] == '<' && ft_strlen(tmp->content) == 2)
+		else if (tmp->content[0] == '<' && tmp->content[1] == '<')
 			tmp->type = 3;
-		else if (tmp->content[0] == '<' && ft_strlen(tmp->content) == 1)
+		else if (tmp->content[0] == '<')
 			tmp->type = 4;
-		else if (tmp->content[0] == '>' && ft_strlen(tmp->content) == 2)
+		else if (tmp->content[0] == '>' && tmp->content[1] == '>')
 			tmp->type = 5;
-		else if (tmp->content[0] == '>' && ft_strlen(tmp->content) == 1)
+		else if (tmp->content[0] == '>')
 			tmp->type = 6;
 		else if (tmp->content[0] == '|')
 			tmp->type = 7;
@@ -70,10 +70,10 @@ void	ft_new_node(t_data *data, int s, int e)
 		data->list = new;
 	else
 	{
-		new->prev = data->list;
 		tmp = data->list;
 		while (tmp->next)
 			tmp = tmp->next;
+		new->prev = tmp;
 		tmp->next = new;
 	}
 }
@@ -108,6 +108,13 @@ void	ft_repi_node(t_data *data, int *start, int *counter, char div)
 	c++;
 	if (data->line[c] == div && div != '|')
 		c++;
+	if (div == '>' || div == '<')
+	{
+		while (data->line[c] == ' ')
+			c++;
+		while (data->line[c] && ft_strchr("|>< ", data->line[c]) == 0)
+			c++;
+	}
 	ft_new_node(data, s, c);
 	*counter = c;
 }
