@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:12:32 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/06 20:36:26 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:33:40 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_copy_envp(t_data *data, char **envp)
 //initializes the data structure
 void	ft_init_data(t_data *data, int argc, char **argv, char **envp)
 {
+	data->redir_err = 0;
 	data->actual_status = 0;
 	data->list = NULL;
 	data->argc = argc;
