@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 00:52:36 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:52:17 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_execute_from_path(t_data *data)
 		paths[c] = ft_strjoin(exec, data->input[c]);
 		free (exec);
 		if (access(*paths, F_OK) == 0
-			&& ft_strnstr(data->input[0], "./", 3) == 0)// "./" management here
+			&& ft_strnstr(data->input[0], "./", 3) == 0)
 		{
 			free(data->input[0]);
 			data->input[0] = ft_strdup(paths[c]);
@@ -84,7 +84,7 @@ void	ft_launch_executable(t_data *data, int infd, int outfd)
 	data->child = fork();
 	if (data->child == 0)
 	{
-		ft_check_file(path, data);// "./" management here
+		ft_check_file(path, data);
 		ft_execute_from_path(data);
 		ft_redirect_in_out(infd, outfd);
 		if (execve(path, data->input, data->envp) == -1)
