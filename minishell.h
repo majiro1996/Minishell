@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 00:52:17 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:36:05 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_data
 	int		argc;
 	int		actual_status;
 	pid_t	child;
+	int		redir_err;
+
 }	t_data;
 
 //main.c
@@ -97,7 +99,7 @@ void	ft_shlvl(t_data *data);
 void	ft_shell_name(t_data *data);
 //pipes.c
 int		ft_count_pipes(t_input *list);
-void	ft_redirect_in_out(int inputfd, int outputfd);
+void	ft_redirect_in_out(int inputfd, int outputfd, t_data *data);
 void	ft_pipeline(t_data *data, int pipecount);
 //redirects.c
 void	ft_redirect_fd(t_data *data, int *inputfd, int *outputfd);

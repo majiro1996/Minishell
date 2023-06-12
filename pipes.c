@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:04:55 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/11 22:59:16 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:35:30 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,10 @@ void	ft_pipeline(t_data *data, int pipecount)
 //if the input or output is not the default, it closes the file descriptor
 //and duplicates the pipe file descriptor to the input or output file descriptor
 //if the input or output is the default, it does nothing
-void	ft_redirect_in_out(int inputfd, int outputfd)
+void	ft_redirect_in_out(int inputfd, int outputfd, t_data *data)
 {
+	if (data->redir_err == 1)
+		ft_clean_exit(1, data);
 	if (inputfd != STDIN_FILENO)
 	{
 		dup2(inputfd, STDIN_FILENO);

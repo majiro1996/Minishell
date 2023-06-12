@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 19:41:29 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/06 16:43:26 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 17:39:05 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_unset(t_data *data)
 //executes the builtin commands
 void	ft_execute_builtin(t_data *data, int inputfd, int outputfd)
 {
-	ft_redirect_in_out(inputfd, outputfd);
+	ft_redirect_in_out(inputfd, outputfd, data);
 	if (ft_strcmp(data->input[0], "pwd") == 0)
 		ft_pwd();
 	else if (ft_strcmp(data->input[0], "echo") == 0)
