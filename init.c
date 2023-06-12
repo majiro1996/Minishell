@@ -44,3 +44,14 @@ void	ft_init_data(t_data *data, int argc, char **argv, char **envp)
 	ft_copy_envp(data, envp);
 	signal_setter();
 }
+
+void	ft_print_init(void)
+{
+	ft_putendl_fd(YELLOW, 1);
+	ft_putendl_fd("ｍｉｎｉｓｈｅｌｌ", 1);
+	ft_putendl_fd("ｂｙ ｍａｎｕｊｉｍｅ", 1);
+	ft_putendl_fd("＆ ａｌｂｇｏｎｚａ", 1);
+	ft_putchar_fd('\n', 1);
+	ft_putendl_fd("ａｓ ｂｅａｕｔｉｆｕｌ ａｓ ａ ｓｈｅｌｌ", 1);
+	ft_putendl_fd(END, 1);
+}

@@ -28,6 +28,8 @@
 # define GREEN "\033[0;32m"
 # define BLUE "\033[0;36m"
 # define END "\033[0m"
+# define CYAN "\033[0;36m"
+# define YELLOW "\033[0;33m"
 
 # define N0_QUOTE 0
 # define SI_QUOTE 1
@@ -78,6 +80,7 @@ void	ft_clean_exit(int exit_code, t_data *data);
 void	ft_init_data(t_data *data, int argc, char **argv, char **envp);
 void	ft_exit(char **input, t_data *data);
 void	ft_export(t_data *data);
+void	ft_print_init(void);
 //export_utils.c
 char	*ft_get_var(char *env);
 void	ft_print_env(char **envp);
