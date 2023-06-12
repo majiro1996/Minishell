@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 17:36:05 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:16:55 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <signal.h>
+# include <errno.h> //to delete
 
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
@@ -63,7 +64,7 @@ void	ft_command(t_data *data, int infd, int outfd);
 //exe_utils.c
 void	ft_print_error(char *path, int outfd, t_data *data);
 int		ft_is_all_space(char *input);
-void	ft_check_file(char *path, t_data *data);
+void	ft_check_file(t_data *data, char *input);
 //builtins.c
 void	ft_cd(t_data *data);
 void	ft_pwd(void);

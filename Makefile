@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/06/12 00:02:12 by manujime         ###   ########.fr        #
+#    Updated: 2023/06/12 19:36:15 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ LFLAGS	= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 
 NAME = minishell
 
-all: $(NAME)
+all: $(NAME) tmp
 
 $(LIBFT):
 	@make extra -C libft
@@ -56,6 +56,9 @@ $(NAME): $(LIBFT) $(OBJ)
 
 bonus: $(BONUS)
 
+tmp:
+	@mkdir tmp
+
 clean:
 	@rm -f $(OBJ)
 
@@ -63,6 +66,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@make fclean -C libft
 	@echo "$(RED)$(NAME) deleted$(END)"
+	@rm -rf tmp
 
 re: fclean all
 
