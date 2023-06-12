@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 22:58:35 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 09:36:54 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:48:43 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,34 @@ void	ft_output_redirect_append(t_input *current, int *outputfd)
 	*outputfd = fd;
 }
 
+//redirects the input to the file specified in the command
+//if the file does not exist or cannot be opened, it prints an error
+//if the file is not specified, it prints an error
+void	ft_input_redirect(t_input *current, int *inputfd)
+{
+	int		fd;
+	char	**tmp;
+
+	tmp = ft_split(current->content, ' ');
+	if (!tmp[1] || tmp == NULL)
+	{
+		ft_free_char_matrix(tmp);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+		return ;
+	}
+	fd = open(tmp[1], O_RDONLY);
+	ft_free_char_matrix(tmp);
+	if (fd == -1)
+	{
+		perror("open: ");
+		return ;
+	}
+	if (*inputfd != 0)
+		close(*inputfd);
+	*inputfd = fd;
+}
+
 //checks if there is any redirection in the command
 //if there is, it redirects the input or output to the file
 //if there is not, it does nothing
@@ -97,9 +125,8 @@ void	ft_redirect_fd(t_data *data, int *inputfd, int *outputfd)
 		else if (tmp->type == 3)
 		 	printf("here document\n");//
 		// 	ft_here_document(data, tmp, inputfd);
-		else if (tmp->type == 4 && inputfd)//
-			printf("input redirect\n");//
-		// 	ft_input_redirect(data, tmp, inputfd);
+		else if (tmp->type == 4)
+			ft_input_redirect(tmp, inputfd);
 		else if (tmp->type == 5)
 			ft_output_redirect_append(tmp, outputfd);
 		tmp = tmp->next;
