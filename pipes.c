@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:04:55 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/13 17:28:27 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 00:00:52 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,17 @@ int	ft_count_pipes(t_input *list)
 	return (count);
 }
 
+char	**ft_split_join(t_input *current)
+{
+	char	*str;
+	char	**tmp;
+
+	str = ft_full_join(current);
+	tmp = ft_split(str, ' ');
+	free(str);
+	return (tmp);
+}
+
 //executes all the commands in the input linked list
 //joins the content of all nodes until it finds a pipe
 //then it splits the content of the node and executes the command
@@ -47,7 +58,7 @@ void	ft_pipeline(t_data *data, int pipecount)
 	{
 		if (pipe(pipefd) == -1)
 			perror("pipe");
-		data->input = ft_split(ft_full_join(data->current), ' ');
+		data->input = ft_split_join(data->current);
 		if (c == pipecount)
 			ft_command(data, inputfd, STDOUT_FILENO, c);
 		else
