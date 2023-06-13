@@ -92,7 +92,7 @@ void	ft_launch_executable(t_data *data, int infd, int outfd)
 		ft_clean_exit(EXIT_FAILURE, data);
 	}
 	else if (data->child < 0)
-		perror(path);
+		perror(data->input[0]);
 	else
 	{
 		waitpid(data->child, &status, WUNTRACED);
@@ -126,11 +126,12 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
+	ft_print_init();
 	ft_init_data(&data, argc, argv, envp);
 	ft_shell_name(&data);
 	while (1)
 	{
-		data.line = readline("minishell> ");
+		data.line = readline("minishell$ ");
 		if (data.line == NULL)
 		{
 			printf("\n");
