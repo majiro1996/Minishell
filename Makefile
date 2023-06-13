@@ -6,7 +6,7 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/06/12 19:36:15 by manujime         ###   ########.fr        #
+#    Updated: 2023/06/13 19:47:33 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC =   main.c \
 		pipes.c \
 		redirects.c \
 		signals.c \
+		here_document.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -58,6 +59,7 @@ bonus: $(BONUS)
 
 tmp:
 	@mkdir tmp
+	@touch tmp/.here_docminishell.tmp
 
 clean:
 	@rm -f $(OBJ)

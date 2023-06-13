@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:04:55 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 18:40:06 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:28:27 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	ft_pipeline(t_data *data, int pipecount)
 			perror("pipe");
 		data->input = ft_split(ft_full_join(data->current), ' ');
 		if (c == pipecount)
-			ft_command(data, inputfd, STDOUT_FILENO);
+			ft_command(data, inputfd, STDOUT_FILENO, c);
 		else
-			ft_command(data, inputfd, pipefd[1]);
+			ft_command(data, inputfd, pipefd[1], c);
 		close(pipefd[1]);
 		inputfd = pipefd[0];
 		ft_free_char_matrix(data->input);

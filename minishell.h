@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 19:16:55 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:49:04 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_data
 //main.c
 int		ft_builtins(t_data *data, int infd, int outfd);
 void	ft_launch_executable(t_data *data, int infd, int outfd);
-void	ft_command(t_data *data, int infd, int outfd);
+void	ft_command(t_data *data, int infd, int outfd, int c);
 //exe_utils.c
 void	ft_print_error(char *path, int outfd, t_data *data);
 int		ft_is_all_space(char *input);
@@ -110,5 +110,9 @@ void	ft_redirect_fd(t_data *data, int *inputfd, int *outputfd);
 //signals.c
 void	signal_setter(void);
 void	signal_handler(int signal);
+void	ft_active_setter(int i);
+int		ft_active_getter(void);
+//here_document.c
+void	ft_here_document(t_input *current, int *inputfd, t_data *data);
 
 #endif

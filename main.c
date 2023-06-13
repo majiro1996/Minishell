@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 19:15:53 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:05:38 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	ft_builtins(t_data *data, int inputfd, int outputfd)
 	if (is_builtin == 1 && ft_strnstr("pwd echo env",
 			data->input[0], 33) != 0)
 	{
+		ft_active_setter(1);
 		pid = fork();
 		if (pid == 0)
 			ft_execute_builtin(data, inputfd, outputfd);
@@ -78,17 +79,16 @@ void	ft_execute_from_path(t_data *data)
 void	ft_launch_executable(t_data *data, int infd, int outfd)
 {
 	int		status;
-	char	*path;
 
+	ft_active_setter(1);
 	data->child = fork();
 	if (data->child == 0)
 	{
 		ft_check_file(data, data->input[0]);
 		ft_execute_from_path(data);
-		path = data->input[0];
 		ft_redirect_in_out(infd, outfd, data);
-		if (execve(path, data->input, data->envp) == -1)
-			ft_print_error(path, outfd, data);
+		if (execve(data->input[0], data->input, data->envp) == -1)
+			ft_print_error(data->input[0], outfd, data);
 		ft_clean_exit(EXIT_FAILURE, data);
 	}
 	else if (data->child < 0)
@@ -107,7 +107,7 @@ void	ft_launch_executable(t_data *data, int infd, int outfd)
 //checks if the first argument is a builtin command and if it isn't, it checks
 //if it is an executable and if it is, it executes it
 //checks for the exit command and exits the shell if it is
-void	ft_command(t_data *data, int inputfd, int outputfd)
+void	ft_command(t_data *data, int inputfd, int outputfd, int c)
 {
 	int	builtin;
 
@@ -116,6 +116,8 @@ void	ft_command(t_data *data, int inputfd, int outputfd)
 	builtin = ft_builtins(data, inputfd, outputfd);
 	if (!builtin && data->input[0])
 		ft_launch_executable(data, inputfd, outputfd);
+	if (c == ft_count_pipes(data->list))
+		ft_active_setter(0);
 }
 
 //this is the main function, it displays a prompt and waits for the user to
