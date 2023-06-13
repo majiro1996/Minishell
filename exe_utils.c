@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:39:51 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 19:15:25 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:42:33 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_check_file(t_data *data, char *input)
 {
 	if (access(input, F_OK) == 0)
 	{
-		if (ft_strnstr(input, "./", 3) == 0)
+		if (ft_strnstr(input, "./", 3) == 0 && ft_strnstr(input, "/", 2) == 0)
 		{
 			ft_putstr_fd(input, STDERR_FILENO);
 			ft_putstr_fd(": ", STDERR_FILENO);
@@ -58,4 +58,16 @@ void	ft_check_file(t_data *data, char *input)
 			ft_clean_exit(127, data);
 		}
 	}
+}
+
+//checks if the path env variable exists, if it does it returns the path
+//if it doesn't it returns an empty string
+char	*ft_pathfinder(t_data *data)
+{
+	char	*path;
+
+	path = ft_get_env("PATH", data);
+	if (path == NULL)
+		path = ft_strdup("");
+	return (path);
 }

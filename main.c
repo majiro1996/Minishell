@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/13 19:05:38 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/13 22:42:55 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_execute_from_path(t_data *data)
 	char	**paths;
 	int		c;
 
-	path = ft_get_env("PATH", data);
+	path = ft_pathfinder(data);
 	paths = ft_split(path, ':');
 	c = 0;
 	while (paths[c])
