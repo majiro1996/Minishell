@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:12:32 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 17:33:40 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:38:58 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ft_init_data(t_data *data, int argc, char **argv, char **envp)
 	data->argv = argv;
 	ft_copy_envp(data, envp);
 	signal_setter();
+	ft_active_setter(0);
 }
 
 void	ft_print_init(void)
