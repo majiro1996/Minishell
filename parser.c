@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 17:11:46 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:06:42 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*ft_get_env(char *input, t_data *data)
 			ft_free_char_matrix(value);
 			return (tmp);
 		}
+		free(var);
 		c++;
 	}
 	return (NULL);
