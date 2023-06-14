@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 20:01:28 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 23:20:25 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,25 @@
 //directory
 void	ft_cd(t_data *data)
 {
-	char	*aux;
 	char	*cwd;
 
-	aux = data->input[1];
-	free(data->input[1]);
-	cwd = getcwd(NULL, 0);
-	data->input[1] = ft_strjoin("OLDPWD=", cwd);
-	ft_update_env(data);
-	free(data->input[1]);
-	if ((aux == NULL || ft_strcmp(aux, "") == 0))
+	if ((data->input[1] == NULL || ft_strcmp(data->input[1], "") == 0))
 	{
 		if (chdir(getenv("HOME")) != 0)
 			perror("cd");
 	}
-	if (chdir(aux) != 0)
-		ft_cd_error(aux);
+	else if (chdir(data->input[1]) != 0)
+		ft_cd_error(data->input[1]);
+	cwd = ft_get_env("PWD", data);
+	free(data->input[1]);
+	data->input[1] = ft_strjoin("OLDPWD=", cwd);
+	ft_update_env(data);
 	free(cwd);
+	free(data->input[1]);
 	cwd = getcwd(NULL, 0);
 	data->input[1] = ft_strjoin("PWD=", cwd);
-	free(cwd);
 	ft_update_env(data);
+	free(cwd);
 	free(data->input[1]);
 	data->input[1] = NULL;
 }
