@@ -6,19 +6,29 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 19:41:29 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 19:57:05 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 23:46:45 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//prints the error for cd
-void	ft_cd_error(char *aux)
+//updates the envp array with the new PWD and OLDPWD
+void	ft_cd_update(t_data *data)
 {
-	ft_putstr_fd("cd: ", STDERR_FILENO);
-	ft_putstr_fd(aux, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(strerror(2), STDERR_FILENO);
+	char	*cwd;
+
+	cwd = ft_get_env("PWD", data);
+	free(data->input[1]);
+	data->input[1] = ft_strjoin("OLDPWD=", cwd);
+	ft_update_env(data);
+	free(cwd);
+	free(data->input[1]);
+	cwd = getcwd(NULL, 0);
+	data->input[1] = ft_strjoin("PWD=", cwd);
+	ft_update_env(data);
+	free(cwd);
+	free(data->input[1]);
+	data->input[1] = NULL;
 }
 
 //checks if the var to remove exits

@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 23:20:25 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 23:47:14 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,28 @@
 //directory
 void	ft_cd(t_data *data)
 {
-	char	*cwd;
-
+	if (ft_char_matrix_len(data->input) > 2)
+	{
+		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
+		return ;
+	}
 	if ((data->input[1] == NULL || ft_strcmp(data->input[1], "") == 0))
 	{
 		if (chdir(getenv("HOME")) != 0)
+		{
 			perror("cd");
+			return ;
+		}
 	}
 	else if (chdir(data->input[1]) != 0)
-		ft_cd_error(data->input[1]);
-	cwd = ft_get_env("PWD", data);
-	free(data->input[1]);
-	data->input[1] = ft_strjoin("OLDPWD=", cwd);
-	ft_update_env(data);
-	free(cwd);
-	free(data->input[1]);
-	cwd = getcwd(NULL, 0);
-	data->input[1] = ft_strjoin("PWD=", cwd);
-	ft_update_env(data);
-	free(cwd);
-	free(data->input[1]);
-	data->input[1] = NULL;
+	{
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putstr_fd(data->input[1], STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putendl_fd(strerror(2), STDERR_FILENO);
+		return ;
+	}
+	ft_cd_update(data);
 }
 
 //gets the curent working directory and prints it to stdout

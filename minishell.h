@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:52 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 19:49:04 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 23:46:28 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ char	*ft_pathfinder(t_data *data);
 void	ft_cd(t_data *data);
 void	ft_pwd(void);
 void	ft_echo(char **input);
+//built_ins_2.c
+void	ft_unset(t_data *data);
+void	ft_execute_builtin(t_data *data, int inputfd, int outputfd);
+void	ft_parent_command(t_data *data);
+void	ft_cd_update(t_data *data);
 //clean_up.c
 void	ft_clean_paths(char **paths);
 void	ft_clean_input(t_data *data);
@@ -95,11 +100,6 @@ char	*ft_full_join(t_input *list);
 void	ft_search_and_replace(t_data *data);
 //parser_list.c
 void	ft_input_parse(t_data *data);
-//built_ins_2.c
-void	ft_unset(t_data *data);
-void	ft_execute_builtin(t_data *data, int inputfd, int outputfd);
-void	ft_parent_command(t_data *data);
-void	ft_cd_error(char *aux);
 //updates_at_start.c
 void	ft_shlvl(t_data *data);
 void	ft_shell_name(t_data *data);
