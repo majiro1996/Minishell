@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:09:32 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 18:03:36 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:17:50 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_clean_input(t_data *data)
 
 void	ft_clean_exit(int exit_code, t_data *data)
 {
+	rl_clear_history();
 	ft_free_char_matrix(data->envp);
 	ft_clean_input(data);
 	exit(exit_code);

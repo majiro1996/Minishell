@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 18:07:28 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:17:55 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,13 +140,15 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		if (ft_strcmp(data.line, "") == 0 || ft_is_all_space(data.line))
+		{
+			free(data.line);
 			continue ;
+		}
 		add_history(data.line);
 		ft_parse(&data);
 		ft_pipeline(&data, ft_count_pipes(data.list));
 		ft_clean_input(&data);
 	}
-	rl_clear_history();
 	ft_clean_exit(EXIT_SUCCESS, &data);
 	return (0);
 }
