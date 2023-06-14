@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 12:53:20 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:11:46 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char	*ft_get_env(char *input, t_data *data)
 	int		c;
 	char	*var;
 	char	**value;
+	char	*tmp;
 
 	c = 0;
 	while (data->envp[c])
@@ -27,8 +28,9 @@ char	*ft_get_env(char *input, t_data *data)
 		{
 			free(var);
 			value = ft_split(data->envp[c], '=');
-			free (value[0]);
-			return (value[1]);
+			tmp = ft_strdup(value[1]);
+			ft_free_char_matrix(value);
+			return (tmp);
 		}
 		c++;
 	}

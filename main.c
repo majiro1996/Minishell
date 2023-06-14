@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 11:12:20 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:32:39 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,20 @@ int	ft_builtins(t_data *data, int inputfd, int outputfd)
 //to the executable
 void	ft_execute_from_path(t_data *data)
 {
-	char	*path;
-	char	*exec;
+	char	*aux;
 	char	**paths;
 	int		c;
 
-	path = ft_pathfinder(data);
-	paths = ft_split(path, ':');
+	aux = ft_pathfinder(data);
+	paths = ft_split(aux, ':');
 	c = 0;
-	while (paths[c])
+	free (aux);
+	while (paths[c] && ft_strcmp(paths[c], "") != 0)
 	{
-		exec = ft_strjoin(paths[c], "/");
+		aux = ft_strjoin(paths[c], "/");
 		free (paths[c]);
-		paths[c] = ft_strjoin(exec, data->input[0]);
-		free (exec);
+		paths[c] = ft_strjoin(aux, data->input[0]);
+		free (aux);
 		if (access(paths[c], F_OK) == 0
 			&& ft_strnstr(data->input[0], "./", 3) == 0)
 		{
@@ -70,8 +70,7 @@ void	ft_execute_from_path(t_data *data)
 		}
 		c++;
 	}
-	free (path);
-	ft_clean_paths(paths);
+	ft_free_char_matrix(paths);
 }
 
 //Search and launch the right executable (based on the PATH variable or using a
@@ -126,6 +125,7 @@ void	ft_command(t_data *data, int inputfd, int outputfd, int c)
 // atexit(ft_leaks);
 int	main(int argc, char **argv, char **envp)
 {
+	atexit(ft_leaks);
 	t_data	data;
 
 	ft_print_init();
@@ -147,5 +147,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_clean_input(&data);
 	}
 	rl_clear_history();
+	ft_clean_exit(EXIT_SUCCESS, &data);
 	return (0);
 }
