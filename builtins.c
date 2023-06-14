@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 19:02:52 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 19:36:03 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@
 void	ft_cd(t_data *data)
 {
 	char	*aux;
+	char	*cwd;
 
 	aux = data->input[1];
-	data->input[1] = ft_strjoin("OLDPWD=", getcwd(NULL, 0));
+	cwd = getcwd(NULL, 0);
+	data->input[1] = ft_strjoin("OLDPWD=", cwd);
 	ft_update_env(data);
-	if (aux == NULL)
+	free(data->input[1]);
+	if (aux == NULL || ft_strcmp(aux, "") == 0)
 	{
 		if (chdir(getenv("HOME")) != 0)
 			perror("cd");
@@ -32,8 +35,13 @@ void	ft_cd(t_data *data)
 		printf("cd: %s", strerror(2));
 		printf(": %s\n", aux);
 	}
-	data->input[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
+	free(cwd);
+	cwd = getcwd(NULL, 0);
+	data->input[1] = ft_strjoin("PWD=", cwd);
+	free(cwd);
 	ft_update_env(data);
+	free(data->input[1]);
+	data->input[1] = NULL;
 }
 
 //gets the curent working directory and prints it to stdout
@@ -49,8 +57,8 @@ void	ft_pwd(void)
 	{
 		ft_putstr_fd(cwd, STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
-		free(cwd);
 	}
+	free(cwd);
 }
 
 //prints the input to stdout, checks if there is a -n flag and if there is,
