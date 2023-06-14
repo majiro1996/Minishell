@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 19:36:03 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 20:01:28 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,18 @@ void	ft_cd(t_data *data)
 	char	*cwd;
 
 	aux = data->input[1];
+	free(data->input[1]);
 	cwd = getcwd(NULL, 0);
 	data->input[1] = ft_strjoin("OLDPWD=", cwd);
 	ft_update_env(data);
 	free(data->input[1]);
-	if (aux == NULL || ft_strcmp(aux, "") == 0)
+	if ((aux == NULL || ft_strcmp(aux, "") == 0))
 	{
 		if (chdir(getenv("HOME")) != 0)
 			perror("cd");
 	}
-	else if (chdir(aux) != 0)
-	{
-		printf("cd: %s", strerror(2));
-		printf(": %s\n", aux);
-	}
+	if (chdir(aux) != 0)
+		ft_cd_error(aux);
 	free(cwd);
 	cwd = getcwd(NULL, 0);
 	data->input[1] = ft_strjoin("PWD=", cwd);
