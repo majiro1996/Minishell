@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/13 23:56:01 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 11:12:20 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void	ft_command(t_data *data, int inputfd, int outputfd, int c)
 		ft_launch_executable(data, inputfd, outputfd);
 	if (c == ft_count_pipes(data->list))
 		ft_active_setter(0);
-	ft_free_char_matrix(data->input);
 }
 
 //this is the main function, it displays a prompt and waits for the user to
