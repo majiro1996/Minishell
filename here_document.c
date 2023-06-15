@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:46:15 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/13 19:47:16 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:07:09 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ char	*ft_get_tmp_path(t_data *data)
 	char	*shell;
 	char	*tmp;
 
-	shell = ft_get_env("SHELL", data);
-	shell = ft_strtrim(shell, "minishell");
+	tmp = ft_get_env("SHELL", data);
+	shell = ft_strtrim(tmp, "minishell");
+	free(tmp);
 	tmp = ft_strjoin(shell, "/tmp/.here_docminishell.tmp");
+	free(shell);
 	return (tmp);
 }
 
@@ -30,8 +32,7 @@ char	*ft_get_delimiter(t_input *current)
 
 	tmp = ft_split(current->content, ' ');
 	aux = ft_strjoin(tmp[1], "\n");
-	free(tmp[0]);
-	free(tmp);
+	ft_free_char_matrix(tmp);
 	return (aux);
 }
 
