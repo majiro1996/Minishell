@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 19:41:29 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 23:46:45 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:43:34 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ int	ft_unset_check(t_data *data)
 	{
 		var = ft_get_var(data->envp[c]);
 		if (ft_strcmp(var, data->input[1]) == 0)
-		{
-			free(var);
 			found = 1;
-		}
 		c++;
+		free(var);
 	}
 	return (found);
 }
@@ -75,6 +73,7 @@ void	ft_unset(t_data *data)
 			c++;
 			continue ;
 		}
+		free(var);
 		new_envp[d++] = ft_strdup(data->envp[c++]);
 	}
 	new_envp[d] = NULL;

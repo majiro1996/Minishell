@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 18:17:55 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:44:12 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	ft_execute_from_path(t_data *data)
 	aux = ft_pathfinder(data);
 	paths = ft_split(aux, ':');
 	c = 0;
-	free (aux);
+	if (ft_strcmp(aux, "") != 0)
+		free (aux);
 	while (paths[c] && ft_strcmp(paths[c], "") != 0)
 	{
 		aux = ft_strjoin(paths[c], "/");
@@ -125,7 +126,6 @@ void	ft_command(t_data *data, int inputfd, int outputfd, int c)
 // atexit(ft_leaks);
 int	main(int argc, char **argv, char **envp)
 {
-	atexit(ft_leaks);
 	t_data	data;
 
 	ft_print_init();
