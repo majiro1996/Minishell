@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 13:39:51 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/13 22:42:33 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:50:15 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ char	*ft_pathfinder(t_data *data)
 
 	path = ft_get_env("PATH", data);
 	if (path == NULL)
-		path = ft_strdup("");
+		return ("");
 	return (path);
 }

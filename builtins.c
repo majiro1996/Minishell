@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 19:02:52 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/15 20:07:44 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,28 @@
 //directory
 void	ft_cd(t_data *data)
 {
-	char	*aux;
-
-	aux = data->input[1];
-	data->input[1] = ft_strjoin("OLDPWD=", getcwd(NULL, 0));
-	ft_update_env(data);
-	if (aux == NULL)
+	if (ft_char_matrix_len(data->input) > 2)
+	{
+		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
+		return ;
+	}
+	if ((data->input[1] == NULL || ft_strcmp(data->input[1], "") == 0))
 	{
 		if (chdir(getenv("HOME")) != 0)
+		{
 			perror("cd");
+			return ;
+		}
 	}
-	else if (chdir(aux) != 0)
+	else if (chdir(data->input[1]) != 0)
 	{
-		printf("cd: %s", strerror(2));
-		printf(": %s\n", aux);
+		ft_putstr_fd("cd: ", STDERR_FILENO);
+		ft_putstr_fd(data->input[1], STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putendl_fd(strerror(2), STDERR_FILENO);
+		return ;
 	}
-	data->input[1] = ft_strjoin("PWD=", getcwd(NULL, 0));
-	ft_update_env(data);
+	ft_cd_update(data);
 }
 
 //gets the curent working directory and prints it to stdout
@@ -49,12 +54,14 @@ void	ft_pwd(void)
 	{
 		ft_putstr_fd(cwd, STDOUT_FILENO);
 		ft_putstr_fd("\n", STDOUT_FILENO);
-		free(cwd);
 	}
+	free(cwd);
 }
 
 //prints the input to stdout, checks if there is a -n flag and if there is,
 //it doesn't print a newline
+//the -n flag is only valid if it's the first argument
+//and can have many n
 void	ft_echo(char **input)
 {
 	int	c;
@@ -62,11 +69,13 @@ void	ft_echo(char **input)
 
 	c = 1;
 	n_flag = 0;
-	if (input[1] && ft_strcmp(input[1], "-n") == 0)
+	if (input[1] && ft_is_n(input[1]) == 1)
 	{
 		n_flag = 1;
 		c++;
 	}
+	while (input[c] && ft_is_n(input[c]) == 1)
+		c++;
 	while (input[c])
 	{
 		ft_putstr_fd(input[c], STDOUT_FILENO);

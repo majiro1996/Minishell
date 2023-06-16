@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:14:58 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/13 22:42:55 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/15 20:07:17 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,21 @@ int	ft_builtins(t_data *data, int inputfd, int outputfd)
 //to the executable
 void	ft_execute_from_path(t_data *data)
 {
-	char	*path;
-	char	*exec;
+	char	*aux;
 	char	**paths;
 	int		c;
 
-	path = ft_pathfinder(data);
-	paths = ft_split(path, ':');
+	aux = ft_pathfinder(data);
+	paths = ft_split(aux, ':');
 	c = 0;
-	while (paths[c])
+	if (ft_strcmp(aux, "") != 0)
+		free (aux);
+	while (paths[c] && ft_strcmp(paths[c], "") != 0)
 	{
-		exec = ft_strjoin(paths[c], "/");
+		aux = ft_strjoin(paths[c], "/");
 		free (paths[c]);
-		paths[c] = ft_strjoin(exec, data->input[0]);
-		free (exec);
+		paths[c] = ft_strjoin(aux, data->input[0]);
+		free (aux);
 		if (access(paths[c], F_OK) == 0
 			&& ft_strnstr(data->input[0], "./", 3) == 0)
 		{
@@ -70,8 +71,7 @@ void	ft_execute_from_path(t_data *data)
 		}
 		c++;
 	}
-	free (path);
-	ft_clean_paths(paths);
+	ft_free_char_matrix(paths);
 }
 
 //Search and launch the right executable (based on the PATH variable or using a
@@ -140,12 +140,15 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		}
 		if (ft_strcmp(data.line, "") == 0 || ft_is_all_space(data.line))
+		{
+			free(data.line);
 			continue ;
+		}
 		add_history(data.line);
 		ft_parse(&data);
 		ft_pipeline(&data, ft_count_pipes(data.list));
 		ft_clean_input(&data);
 	}
-	rl_clear_history();
+	ft_clean_exit(EXIT_SUCCESS, &data);
 	return (0);
 }

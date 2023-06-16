@@ -6,12 +6,12 @@
 #    By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/09 22:40:46 by manujime          #+#    #+#              #
-#    Updated: 2023/06/13 19:47:33 by manujime         ###   ########.fr        #
+#    Updated: 2023/06/15 20:03:33 by manujime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 LIBFT = libft/libft.a
 
 GREEN		=		\033[0;32m
@@ -33,6 +33,7 @@ SRC =   main.c \
 		redirects.c \
 		signals.c \
 		here_document.c \
+		built_ins_3.c \
 
 OBJ = $(SRC:.c=.o)
 

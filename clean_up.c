@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:09:32 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/09 12:12:09 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:17:50 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,6 @@
 void	ft_leaks(void)
 {
 	system("leaks -q minishell");
-}
-
-void	ft_clean_paths(char **paths)
-{
-	int	c;
-
-	c = 0;
-	while (paths[c])
-	{
-		free(paths[c]);
-		c++;
-	}
 }
 
 //frees all the memory allocated for the list
@@ -59,6 +47,8 @@ void	ft_clean_input(t_data *data)
 
 void	ft_clean_exit(int exit_code, t_data *data)
 {
+	rl_clear_history();
+	ft_free_char_matrix(data->envp);
 	ft_clean_input(data);
 	exit(exit_code);
 }
