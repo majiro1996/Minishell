@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 15:14:27 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/12 00:40:39 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/22 09:53:58 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,28 @@ void	ft_repi_node(t_data *data, int *start, int *counter, char div)
 	*counter = c;
 }
 
+//makes a new node for the non-quoted part of the input string
+//it skips the spaces and pipes and redirects
+//separating it into a new node for further processing later
+void	ft_regular_node(t_data *data, int *start, int *counter)
+{
+	int	c;
+	int	s;
+
+	c = *counter;
+	s = *start;
+	while (data->line[c] && data->line[c] == ' ')
+		c++;
+	s = c;
+	while (data->line[c] && data->line[c] != '\''
+		&& data->line[c] != '\"'
+		&& ft_strchr("|>< ", data->line[c]) == 0)
+		c++;
+	if (c > s)
+		ft_new_node(data, s, c);
+	*counter = c;
+}
+
 //divides the data->line string into nodes
 //each node contains a string surrounded by single or double quotes
 //or a non-quoted string, that includes non closed quotes
@@ -139,11 +161,12 @@ void	ft_input_parse(t_data *data)
 			ft_repi_node(data, &s, &c, data->line[c]);
 		else
 		{
-			while (data->line[c] && data->line[c] != '\''
-				&& data->line[c] != '\"'
-				&& ft_strchr("|><", data->line[c]) == 0)
-				c++;
-			ft_new_node(data, s, c);
+			ft_regular_node(data, &s, &c);
+			// while (data->line[c] && data->line[c] != '\''
+			// 	&& data->line[c] != '\"'
+			// 	&& ft_strchr("|>< ", data->line[c]) == 0)
+			// 	c++;
+			// ft_new_node(data, s, c);
 		}
 	}
 	ft_set_input_type(data);
