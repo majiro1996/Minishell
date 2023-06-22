@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 12:41:45 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 23:47:14 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/15 20:07:44 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_pwd(void)
 
 //prints the input to stdout, checks if there is a -n flag and if there is,
 //it doesn't print a newline
+//the -n flag is only valid if it's the first argument
+//and can have many n
 void	ft_echo(char **input)
 {
 	int	c;
@@ -67,11 +69,13 @@ void	ft_echo(char **input)
 
 	c = 1;
 	n_flag = 0;
-	if (input[1] && ft_strcmp(input[1], "-n") == 0)
+	if (input[1] && ft_is_n(input[1]) == 1)
 	{
 		n_flag = 1;
 		c++;
 	}
+	while (input[c] && ft_is_n(input[c]) == 1)
+		c++;
 	while (input[c])
 	{
 		ft_putstr_fd(input[c], STDOUT_FILENO);

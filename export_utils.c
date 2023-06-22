@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 12:46:34 by manujime          #+#    #+#             */
-/*   Updated: 2023/05/22 18:06:48 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/15 20:11:06 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	ft_update_env(t_data *data)
 //adds a new environment variable to the envp array
 int	ft_add_env(t_data *data)
 {
-	static int	first;
 	int			c;
 	char		**new_envp;
 
@@ -101,9 +100,7 @@ int	ft_add_env(t_data *data)
 		new_envp[c] = ft_strdup(data->envp[c]);
 	new_envp[c] = ft_strdup(data->input[1]);
 	new_envp[c + 1] = NULL;
-	if (first != 0)
-		ft_free_char_matrix(data->envp);
-	first++;
+	ft_free_char_matrix(data->envp);
 	data->envp = new_envp;
 	return (1);
 }
