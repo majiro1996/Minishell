@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/22 15:56:17 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:06:13 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,44 @@ int	ft_count_input(t_input *list)
 		tmp = tmp->next;
 	}
 	return (count);
+}
+
+//sets the type of the input node
+//0 = non-quoted string
+//1 = '' single quoted string
+//2 = "" double quoted string
+//3 = << here document
+//4 = <  input redirect
+//5 = >> output redirect append
+//6 = >  output redirect
+//7 = | pipe
+void	ft_set_input_type(t_data *data)
+{
+	t_input	*tmp;
+
+	tmp = data->list;
+	while (tmp)
+	{
+		if (tmp->content[0] == '\'' && ft_strlen(tmp->content) > 1
+			&& tmp->content[ft_strlen(tmp->content) - 1] == '\'')
+			tmp->type = 1;
+		else if (tmp->content[0] == '\"' && ft_strlen(tmp->content) > 1
+			&& tmp->content[ft_strlen(tmp->content) - 1] == '\"')
+			tmp->type = 2;
+		else if (tmp->content[0] == '<' && tmp->content[1] == '<')
+			tmp->type = 3;
+		else if (tmp->content[0] == '<')
+			tmp->type = 4;
+		else if (tmp->content[0] == '>' && tmp->content[1] == '>')
+			tmp->type = 5;
+		else if (tmp->content[0] == '>')
+			tmp->type = 6;
+		else if (tmp->content[0] == '|')
+			tmp->type = 7;
+		else
+			tmp->type = 0;
+		tmp = tmp->next;
+	}
 }
 
 //parses the line string of the data struct
