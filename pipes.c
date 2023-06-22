@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:04:55 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/22 15:35:45 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:56:58 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,9 @@ int	ft_count_pipes(t_input *list)
 char	**ft_path_arguments(t_input *current)
 {
 	char	**tmp;
-	t_input	*tmp2;
 	int		i;
 
-	i = 0;
-	tmp2 = current;
-	while (tmp2 && tmp2->type != 7)
-	{
-		if (tmp2->type == 3 || tmp2->type == 4
-			|| tmp2->type == 5 || tmp2->type == 6)
-		{
-			tmp2 = tmp2->next;
-			continue ;
-		}
-		i++;
-		tmp2 = tmp2->next;
-	}
-	tmp = malloc(sizeof(char *) * (i + 1));
+	tmp = malloc(sizeof(char *) * (ft_count_input(current) + 1));
 	tmp[0] = ft_strtrim(current->content, " ");
 	current = current->next;
 	i = 1;

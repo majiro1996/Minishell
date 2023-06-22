@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 18:27:37 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 18:06:42 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:56:17 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,26 @@ void	ft_print_input(t_input *list)
 	}
 }
 
-//joins all the content of the input linked list between pipes
-//creating a new string for each command
-//pipes and redirections are not included in the new string
-char	*ft_full_join(t_input *list)
+//counts how big should be the allocated memory for the input char **
+int	ft_count_input(t_input *list)
 {
-	char	*new;
-	char	*tmp;
+	int		count;
+	t_input	*tmp;
 
-	new = ft_strdup("");
-	while (list && list->type != 7)
+	tmp = list;
+	count = 0;
+	while (tmp && tmp->type != 7)
 	{
-		if (list->type == 3 || list->type == 4
-			|| list->type == 5 || list->type == 6)
+		if (tmp->type == 3 || tmp->type == 4
+			|| tmp->type == 5 || tmp->type == 6)
 		{
-				list = list->next;
+			tmp = tmp->next;
 			continue ;
 		}
-		tmp = ft_strjoin(new, list->content);
-		free(new);
-		new = tmp;
-		list = list->next;
+		count++;
+		tmp = tmp->next;
 	}
-	return (new);
+	return (count);
 }
 
 //parses the line string of the data struct
