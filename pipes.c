@@ -6,7 +6,7 @@
 /*   By: manujime <manujime@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 16:04:55 by manujime          #+#    #+#             */
-/*   Updated: 2023/06/14 00:00:52 by manujime         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:56:58 by manujime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,36 @@ int	ft_count_pipes(t_input *list)
 	return (count);
 }
 
+char	**ft_path_arguments(t_input *current)
+{
+	char	**tmp;
+	int		i;
+
+	tmp = malloc(sizeof(char *) * (ft_count_input(current) + 1));
+	tmp[0] = ft_strtrim(current->content, " ");
+	current = current->next;
+	i = 1;
+	while (current && current->type != 7)
+	{
+		if (current->type == 3 || current->type == 4
+			|| current->type == 5 || current->type == 6)
+		{
+			current = current->next;
+			continue ;
+		}
+		tmp[i] = ft_strdup(current->content);
+		current = current->next;
+		i++;
+	}
+	tmp[i] = NULL;
+	return (tmp);
+}
+
 char	**ft_split_join(t_input *current)
 {
-	char	*str;
 	char	**tmp;
 
-	str = ft_full_join(current);
-	tmp = ft_split(str, ' ');
-	free(str);
+	tmp = ft_path_arguments(current);
 	return (tmp);
 }
 
